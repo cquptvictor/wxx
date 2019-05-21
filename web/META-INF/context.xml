@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+    <Manager
+            className="org.apache.catalina.session.PersistentManager"
+             maxIdleSwap="1"
+             maxInactiveInterval="2" >
+        <Store className="org.apache.catalina.session.FileStore"
+               directory="/root/session" />
+    </Manager>
+    <Resource
+            name="jdbc/wx"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxActive="15"
+            maxIdle="3"
+            username="root"
+            password="202106"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/wx?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"
+    />
+</Context>
