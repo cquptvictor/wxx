@@ -54,7 +54,8 @@ public class userDao {
 
     public Boolean signIn(String openId){
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "update user set signInDays = signInDays+1,signIn = \"tru\" where openId = ?";
+        String sql = "update user set signInDays = signInDays+1,signIn = \"true\" where openId = ? and signIn =\"false\"";
+
         try {
             if(runner.update(sql,openId) == 1)
                 return true;

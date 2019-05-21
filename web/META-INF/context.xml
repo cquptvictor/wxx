@@ -5,7 +5,7 @@
              maxIdleSwap="1"
              maxInactiveInterval="2" >
         <Store className="org.apache.catalina.session.FileStore"
-               directory="/root/session" />
+               directory="C:\Users\victor\Desktop\session" />
     </Manager>
     <Resource
             name="jdbc/wx"

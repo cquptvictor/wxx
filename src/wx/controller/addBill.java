@@ -23,22 +23,23 @@ public class addBill extends HttpServlet {
         HttpSession session = request.getSession();
         String openId = (String)session.getAttribute("token");
        // String openId= "oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg";
-        String isSignIn = (String) session.getAttribute("isSignIn");
+        String isSignIn = (String)session.getAttribute("isSignIn");
+
         String label = request.getParameter("label");
         String type = request.getParameter("type");
         String remarks = request.getParameter("remarks");
         String time = request.getParameter("time");
         float amount = Float.valueOf(request.getParameter("amount"));
-
         Service service = new Service();
         Gson gson = JsonUtils.getGson();
         PrintWriter printWriter = response.getWriter();
-        if(isSignIn.equals("false") || isSignIn == null) {
-           if(service.signIn(openId))
-                session.setAttribute("isSignIn","true");
-        }
+        if( isSignIn.equals("false")) {
+           if(service.signIn(openId)) {
+                session.setAttribute("isSignIn", "true");
+           }
+           }
         //每天的第一笔帐要发送一个额外的参数
-        if(service.addBill(openId,label,remarks,time,amount,type))
+        if(openId != null && service.addBill(openId,label,remarks,time,amount,type))
             if(isSignIn.equals("true"))
                 printWriter.write(gson.toJson("{'static':1}"));
              else
