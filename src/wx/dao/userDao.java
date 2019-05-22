@@ -264,7 +264,7 @@ public class userDao {
         Object[] days = null;
         try {
             bill = queryRunner.query(sql2,new ArrayHandler(),new Object[]{openId,"bill"});
-            days = queryRunner.query(sql2,new Object[]{openId,"days"},new ArrayHandler());
+            days = queryRunner.query(sql2,new ArrayHandler(),new Object[]{openId,"day"});
 
         } catch (SQLException e) {
             e.printStackTrace();
