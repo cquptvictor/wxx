@@ -66,4 +66,16 @@ public class TeamDao {
         }
         return list;
     }
+
+    public Boolean delTeamBill(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "delete from teamBill where tid = ? and bid = ?";
+        try {
+            if(queryRunner.update(sql,params) == 1)
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  false;
+    }
 }

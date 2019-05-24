@@ -37,4 +37,12 @@ public class TeamService {
         TeamDao dao = new TeamDao();
         return dao.getTeamMember(params);
     }
+    /*
+       删除账单
+     */
+    public Boolean delTeamBill(String tid,String bid) {
+        Object[] params = new Object[]{ tid, bid};
+        TeamDao dao = new TeamDao();
+        return dao.delTeamBill(params);
+    }
 }
