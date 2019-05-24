@@ -4,6 +4,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import wx.domain.Team;
 import wx.domain.TeamBill;
+import wx.domain.TeamMember;
 import wx.utils.JdbcUtils;
 
 import java.sql.Connection;
@@ -48,6 +49,18 @@ public class TeamDao {
         List<TeamBill> list = null;
         try {
             list = queryRunner.query(sql,new BeanListHandler<>(TeamBill.class),params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<TeamMember> getTeamMember(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "select uid,tMemberName as nickName,isAdministrator from teamMember where tid = ? limit ?,10";
+        List<TeamMember> list = null;
+        try {
+            list = queryRunner.query(sql,params,new BeanListHandler<>(TeamMember.class));
         } catch (SQLException e) {
             e.printStackTrace();
         }

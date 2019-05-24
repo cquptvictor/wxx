@@ -34,7 +34,7 @@
     </filter-mapping>
     <servlet>
         <servlet-name>auth</servlet-name>
-        <servlet-class>wx.controller.authenticate</servlet-class>
+        <servlet-class>wx.controller.personal.authenticate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>auth</servlet-name>
@@ -42,7 +42,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>addBill</servlet-name>
-        <servlet-class>wx.controller.addBill</servlet-class>
+        <servlet-class>wx.controller.personal.addBill</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addBill</servlet-name>
@@ -50,7 +50,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getBill</servlet-name>
-        <servlet-class>wx.controller.getBill</servlet-class>
+        <servlet-class>wx.controller.personal.getBill</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getBill</servlet-name>
@@ -58,7 +58,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Info</servlet-name>
-        <servlet-class>wx.controller.Info</servlet-class>
+        <servlet-class>wx.controller.personal.Info</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Info</servlet-name>
@@ -66,7 +66,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>delBill</servlet-name>
-        <servlet-class>wx.controller.delBill</servlet-class>
+        <servlet-class>wx.controller.personal.delBill</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>delBill</servlet-name>
@@ -74,7 +74,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>editBill</servlet-name>
-        <servlet-class>wx.controller.editBill</servlet-class>
+        <servlet-class>wx.controller.personal.editBill</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>editBill</servlet-name>
@@ -82,7 +82,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Graph</servlet-name>
-        <servlet-class>wx.controller.Graph</servlet-class>
+        <servlet-class>wx.controller.personal.Graph</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Graph</servlet-name>
@@ -90,7 +90,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>operateIcon</servlet-name>
-        <servlet-class>wx.controller.iconOperation</servlet-class>
+        <servlet-class>wx.controller.personal.iconOperation</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>operateIcon</servlet-name>
@@ -98,7 +98,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getIcon</servlet-name>
-        <servlet-class>wx.controller.getIcon</servlet-class>
+        <servlet-class>wx.controller.personal.getIcon</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getIcon</servlet-name>
@@ -106,7 +106,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getBadge</servlet-name>
-        <servlet-class>wx.controller.getBadge</servlet-class>
+        <servlet-class>wx.controller.personal.getBadge</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getBadge</servlet-name>
@@ -114,7 +114,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>addBadge</servlet-name>
-        <servlet-class>wx.controller.userBadge</servlet-class>
+        <servlet-class>wx.controller.personal.userBadge</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addBadge</servlet-name>

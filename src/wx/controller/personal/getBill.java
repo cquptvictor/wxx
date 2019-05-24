@@ -1,4 +1,4 @@
-package wx.controller;
+package wx.controller.personal;
 
 import com.google.gson.Gson;
 import wx.domain.Bill;

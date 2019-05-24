@@ -1,4 +1,4 @@
-package wx.team;
+package wx.controller.team;
 
 import com.google.gson.Gson;
 import wx.domain.Team;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.jar.JarEntry;
 
 /*
 获取这个人所加入的团队

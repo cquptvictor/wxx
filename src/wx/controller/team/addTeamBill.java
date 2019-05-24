@@ -1,4 +1,4 @@
-package wx.team;
+package wx.controller.team;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +10,6 @@ import java.io.IOException;
 @WebServlet(name = "Servlet17")
 public class addTeamBill extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
