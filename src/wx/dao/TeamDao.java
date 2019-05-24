@@ -3,6 +3,7 @@ package wx.dao;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import wx.domain.Team;
+import wx.domain.TeamBill;
 import wx.utils.JdbcUtils;
 
 import java.sql.Connection;
@@ -35,7 +36,18 @@ public class TeamDao {
         String sql = "select tid,tname as name,isAdministrator from teamMember where openId = ?";
         List<Team> list = null;
         try {
-             list = queryRunner.query(sql,new BeanListHandler<>(Team.class),openId)
+             list = queryRunner.query(sql,new BeanListHandler<>(Team.class),openId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public List<TeamBill> getTeamBill(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks from teamBill where teamId = ? limit ?,10";
+        List<TeamBill> list = null;
+        try {
+            list = queryRunner.query(sql,new BeanListHandler<>(TeamBill.class),params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
