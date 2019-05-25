@@ -46,8 +46,10 @@ public class authenticate extends HttpServlet {
         //不用重新发送请求
         else if(openId != null) {
             try {
-                if(service.authenticateById(openId))
-                    outputStream.write(gson.toJson("{'static':1}").getBytes("UTF8"));
+                String isSignIn;
+                if((isSignIn = service.authenticateById(openId)) != null){
+                    session.setAttribute("isSignIn",isSignIn);
+                    outputStream.write(gson.toJson("{'static':1}").getBytes("UTF8"));}
                 else
                     outputStream.write(gson.toJson("{'static':0}").getBytes("UTF8"));
             } catch (SQLException e) {

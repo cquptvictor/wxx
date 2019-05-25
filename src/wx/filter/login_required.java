@@ -18,7 +18,7 @@ public class login_required implements Filter {
             chain.doFilter(request, response);
         else
         {
-            response.setStatus(403);
+            response.setStatus(401);
             response.getWriter().write("没有权限访问这个页面");
         }
     }

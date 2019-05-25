@@ -46,15 +46,18 @@ public class Service {
         } else
             return null;
     }
-    public Boolean authenticateById(String openId) throws SQLException {
+    public String authenticateById(String openId) throws SQLException {
         //交给dao层查询用户是否存在
         //如果存在，则通过
         //不存在，则返回
            userDao dao = new userDao();
-           if(dao.findUser(openId) == null)
-               return false;
-           else
-               return  true;
+           String isSignIn = null;
+           try {
+               isSignIn = dao.findUser(openId)[2];
+           }catch (IndexOutOfBoundsException e){
+               e.printStackTrace();
+           }
+           return isSignIn;
     }
 
     public userInfo getUserInfo(String openId){
