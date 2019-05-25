@@ -131,4 +131,16 @@ public class TeamDao {
         }
         return false;
     }
+
+    public Boolean editTeamBill(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "update teamBill set tid = ?,bid = ?, nickName = ?, amount = ?, label = ?, remarks";
+        try {
+            if(queryRunner.update(sql,params) != 0)
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  false;
+    }
 }

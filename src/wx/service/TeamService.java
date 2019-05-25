@@ -1,11 +1,9 @@
 package wx.service;
 
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import wx.dao.TeamDao;
-import wx.domain.Team;
 import wx.domain.TeamBill;
 import wx.domain.TeamMember;
-
-import javax.websocket.OnClose;
 import java.util.List;
 import java.util.UUID;
 
@@ -81,4 +79,15 @@ public class TeamService {
         TeamDao teamDao = new TeamDao();
         return teamDao.kickOut(params);
     }
+
+    /*
+    编辑账单
+    */
+    public Boolean editTeamBill(String tid, String bid, String nickName, String amount, String label, String remarks){
+        Object[] params = new Object[]{tid,bid,nickName,amount,label,remarks};
+        TeamDao dao = new TeamDao();
+        return dao.editTeamBill(params);
+    }
+
+
 }
