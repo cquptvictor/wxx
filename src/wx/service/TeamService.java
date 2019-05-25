@@ -1,6 +1,7 @@
 package wx.service;
 
 import wx.dao.TeamDao;
+import wx.domain.Team;
 import wx.domain.TeamBill;
 import wx.domain.TeamMember;
 
@@ -24,10 +25,10 @@ public class TeamService {
     /*
     获取团队账单
      */
-    public List<TeamBill> getTeamBill(String tid, String page){
+    public List<TeamBill> getTeamBill(String tid, String page,String openId){
         Object[] params = new Object[]{tid,page};
         TeamDao dao = new TeamDao();
-        return dao.getTeamBill(params);
+        return dao.getTeamBill(params,openId);
     }
     /*
     获取团队成员
@@ -44,5 +45,23 @@ public class TeamService {
         Object[] params = new Object[]{ tid, bid};
         TeamDao dao = new TeamDao();
         return dao.delTeamBill(params);
+    }
+
+    /*
+    添加账单
+    */
+    public Boolean addTeamBill(String openId,String nickName,String tid,String amount,String label,String remarks,String time,String type){
+        Object[] params = {openId,nickName,tid,amount,label,remarks,time,type};
+        TeamDao dao = new TeamDao();
+        return dao.addTeamBill(params);
+    }
+    /*
+        团队添加新成员
+    */
+    public Boolean addNewMember(String openId,String tid,String name){
+        String uid = tid+System.currentTimeMillis();
+        Object[] params = new Object[]{openId,tid,uid,name};
+        TeamDao teamDao = new TeamDao();
+        return teamDao.addNewMember(params);
     }
 }

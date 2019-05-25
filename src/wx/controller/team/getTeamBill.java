@@ -21,12 +21,13 @@ public class getTeamBill extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String openId = (String)request.getSession().getAttribute("token");
         String tid = request.getParameter("tid");
         String  page = request.getParameter("page");
         PrintWriter printWriter = response.getWriter();
         Gson gson = JsonUtils.getGson();
         TeamService teamService = new TeamService();
-        List<TeamBill> list = teamService.getTeamBill(tid,page);
+        List<TeamBill> list = teamService.getTeamBill(tid,page,openId);
         printWriter.write("{'data':["+gson.toJson(list)+"]}");
     }
 }

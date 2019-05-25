@@ -43,12 +43,14 @@ public class TeamDao {
         }
         return list;
     }
-    public List<TeamBill> getTeamBill(Object[] params){
+    public List<TeamBill> getTeamBill(Object[] params,String openId){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
         String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks from teamBill where teamId = ? limit ?,10";
+        String sql2 = "update LastReadRecord set lastReadTime = NOW() where openId = ? and tid = ?";
         List<TeamBill> list = null;
         try {
             list = queryRunner.query(sql,new BeanListHandler<>(TeamBill.class),params);
+            queryRunner.update(sql,new Object[]{openId,params[0]});//更新对这个团队账单的最后一次访问时间
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,5 +79,29 @@ public class TeamDao {
             e.printStackTrace();
         }
         return  false;
+    }
+
+    public Boolean addTeamBill(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "insert into teamBill(openId,name,teamId,amount,label,remarks,type,time)values(?,?,?,?,?,?,?,?)";
+        try {
+            queryRunner.update(sql,params);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean addNewMember(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "insert into teamMember(openId,tid,uid,tMemberName)values(?,?,?,?)";
+        try {
+            queryRunner.update(sql,params);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
