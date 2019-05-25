@@ -1,7 +1,7 @@
 package wx.controller.team;
 
 import wx.service.TeamService;
-import wx.utils.isAdministrator;
+import wx.utils.auth.isAdministrator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,9 +21,12 @@ public class delTeamBill extends HttpServlet {
         String openId = (String)request.getSession().getAttribute("token");
         String bid = request.getParameter("bid");
         String tid = request.getParameter("tid");
+        String name = request.getParameter("name");
+        String amount = request.getParameter("amount");
+        String label = request.getParameter("label");
         PrintWriter printWriter = response.getWriter();
         TeamService teamService = new TeamService();
-        if(isAdministrator.auth(openId,tid) && teamService.delTeamBill(tid,bid)){
+        if(isAdministrator.auth(openId,tid) && teamService.delTeamBill(tid,bid,name,amount,label)){
             printWriter.write("{'static':1}");
         }else
             printWriter.write("{'static':0}");

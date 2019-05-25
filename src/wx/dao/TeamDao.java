@@ -1,13 +1,14 @@
 package wx.dao;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import wx.domain.Information;
 import wx.domain.Team;
 import wx.domain.TeamBill;
 import wx.domain.TeamMember;
 import wx.utils.JdbcUtils;
 
-import java.io.BufferedOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -142,5 +143,17 @@ public class TeamDao {
             e.printStackTrace();
         }
         return  false;
+    }
+
+    public List getInfo(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "select message from teamLogs where tid = ? order by time limit ?,10 ";
+        List list = null;
+        try {
+            list =  queryRunner.query(sql,new BeanListHandler<>(Information.class),params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

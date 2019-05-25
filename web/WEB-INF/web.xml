@@ -120,7 +120,86 @@
         <servlet-name>addBadge</servlet-name>
         <url-pattern>/addBadge</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>addTeamBill</servlet-name>
+        <servlet-class>wx.controller.team.delTeamBill</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addTeamBill</servlet-name>
+        <url-pattern>/addTeamBill</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>delTeamBill</servlet-name>
+        <servlet-class>wx.controller.team.delTeamBill</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delTeamBill</servlet-name>
+        <url-pattern>wx.controller.team.delTeamBill</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>editTeamBill</servlet-name>
+        <servlet-class>wx.controller.team.editTeamBill</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editTeamBill</servlet-name>
+        <url-pattern>/editTeamBill</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getInfo</servlet-name>
+        <servlet-class>wx.controller.team.editTeamBill</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getInfo</servlet-name>
+        <url-pattern>wx.controller.team.getInfo</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getTeam</servlet-name>
+        <servlet-class>wx.controller.team.getTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getTeam</servlet-name>
+        <url-pattern>/getTeam</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getTeamBill</servlet-name>
+        <servlet-class>wx.controller.team.getTeamBill</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getTeamBill</servlet-name>
+        <url-pattern>/getTeamBill</url-pattern>
+    </servlet-mapping>
+<servlet>
+    <servlet-name>getTeamMember</servlet-name>
+    <servlet-class>wx.controller.team.getTeamBill</servlet-class>
+</servlet>
+    <servlet-mapping>
+        <servlet-name>getTeamMember</servlet-name>
+        <url-pattern>/getTeamMember</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>joinTeam</servlet-name>
+        <servlet-class>wx.controller.team.joinTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>joinTeam</servlet-name>
+        <url-pattern>/joinTeam</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>leaveTeam</servlet-name>
+        <servlet-class>wx.controller.team.leaveTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>leaveTeam</servlet-name>
+        <url-pattern>/leaveTeam</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>setTeam</servlet-name>
+        <servlet-class>wx.controller.team.setTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>setTeam</servlet-name>
+        <url-pattern>/setTeam</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>1</session-timeout>
     </session-config>

@@ -1,10 +1,17 @@
 package wx.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class TimeUtils {
 
+    public static String getNow(){
+        //时间用于构造json
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String time = simpleDateFormat.format(new Date());
+        return time;
+    }
     public static Date getWeek(int offset){
         Calendar calendar = Calendar.getInstance();
 

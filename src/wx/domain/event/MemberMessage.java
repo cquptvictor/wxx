@@ -1,10 +1,17 @@
 package wx.domain.event;
 
-public class MemberMessage {
+public class MemberMessage  {
     private String operator;//踢人的人的名字
     private String name;//被踢的人的名字
     private String event;//事件
     private String time;//执行此操作的时间
+
+    public MemberMessage(String operator, String name, String event, String time) {
+        this.operator = operator;
+        this.name = name;
+        this.event = event;
+        this.time = time;
+    }
 
     public String getOperator() {
         return operator;

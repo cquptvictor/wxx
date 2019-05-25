@@ -1,8 +1,7 @@
 package wx.controller.team;
 
 import wx.service.TeamService;
-import wx.utils.editionAuth;
-import wx.utils.isAdministrator;
+import wx.utils.auth.editionAuth;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

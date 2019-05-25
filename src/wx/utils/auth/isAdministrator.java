@@ -1,7 +1,8 @@
-package wx.utils;
+package wx.utils.auth;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayHandler;
+import wx.utils.JdbcUtils;
 
 import java.sql.SQLException;
 /*
