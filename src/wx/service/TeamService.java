@@ -27,9 +27,9 @@ public class TeamService {
     获取团队账单
      */
     public List<TeamBill> getTeamBill(String tid, String page,String openId){
-        Object[] params = new Object[]{tid,page};
+        Object[] params = new Object[]{openId,tid,page};
         TeamDao dao = new TeamDao();
-        return dao.getTeamBill(params,openId);
+        return dao.getTeamBill(params);
     }
     /*
     获取团队成员

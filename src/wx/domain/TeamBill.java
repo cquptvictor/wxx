@@ -5,8 +5,17 @@ public class TeamBill {
     private String uid;
     private String nickName;
     private String amount;
-    private String  label;
+    private String label;
     private String remarks;
+    private String isSelf;
+
+    public String getIsSelf() {
+        return isSelf;
+    }
+
+    public void setIsSelf(String isSelf) {
+        this.isSelf = isSelf;
+    }
 
     public String getBid() {
         return bid;

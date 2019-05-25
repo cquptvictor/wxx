@@ -44,14 +44,15 @@ public class TeamDao {
         }
         return list;
     }
-    public List<TeamBill> getTeamBill(Object[] params,String openId){
+    public List<TeamBill> getTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks from teamBill where teamId = ? limit ?,10";
+        //多个sql应该加事务
+        String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks，openId = ? as isSelf from teamBill where teamId = ? limit ?,10";
         String sql2 = "update LastReadRecord set lastReadTime = NOW() where openId = ? and tid = ?";
         List<TeamBill> list = null;
         try {
             list = queryRunner.query(sql,new BeanListHandler<>(TeamBill.class),params);
-            queryRunner.update(sql,new Object[]{openId,params[0]});//更新对这个团队账单的最后一次访问时间
+            queryRunner.update(sql2,new Object[]{params[0],params[1]});//更新对这个团队账单的最后一次访问时间
         } catch (SQLException e) {
             e.printStackTrace();
         }
