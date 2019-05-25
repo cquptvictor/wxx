@@ -7,6 +7,7 @@ import wx.domain.TeamBill;
 import wx.domain.TeamMember;
 import wx.utils.JdbcUtils;
 
+import java.io.BufferedOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -100,6 +101,31 @@ public class TeamDao {
             queryRunner.update(sql,params);
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean leaveTeam(Object[] params)
+    {
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "delete * from teamMember where tid = ? and openId = ?";
+        try {
+            queryRunner.update(sql,params);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean kickOut(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "delete * from teamMember where tid = ? and openId = ? and uid = ?";
+        try {
+            queryRunner.update(sql);
+            return true;
+         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;

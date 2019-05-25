@@ -5,6 +5,7 @@ import wx.domain.Team;
 import wx.domain.TeamBill;
 import wx.domain.TeamMember;
 
+import javax.websocket.OnClose;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,5 +64,21 @@ public class TeamService {
         Object[] params = new Object[]{openId,tid,uid,name};
         TeamDao teamDao = new TeamDao();
         return teamDao.addNewMember(params);
+    }
+    /*
+    成员退出团队
+    */
+    public Boolean leaveTeam(String tid,String openId){
+        TeamDao dao = new TeamDao();
+        Object[] params = new Object[]{tid,openId};
+        return dao.leaveTeam(params);
+    }
+    /*
+    团队管理员踢人
+    */
+    public Boolean kickOut(String tid,String openId,String uid){
+        Object[] params = new Object[]{tid,openId,uid};
+        TeamDao teamDao = new TeamDao();
+        return teamDao.kickOut(params);
     }
 }

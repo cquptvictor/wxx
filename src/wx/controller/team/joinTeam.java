@@ -32,6 +32,5 @@ public class joinTeam extends HttpServlet {
             else
                 printWriter.write("{'static':0}");
         }
-
     }
 }
