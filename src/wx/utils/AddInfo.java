@@ -1,13 +1,26 @@
 package wx.utils;
 
+import org.apache.commons.dbutils.QueryRunner;
 
-import java.util.concurrent.ConcurrentHashMap;
-
-public class AddInfo {
-    //保存要插入数据库的消息<插入的对象，插入的消息>
-    public static ConcurrentHashMap<String,String> map = new ConcurrentHashMap<>();
-    public static void addMessage(String teamId,String message){
-        map.put(teamId,message);
+import java.sql.SQLException;
+/*
+帮助记录消息到数据库中，采用多线程可以异步，并且复用，应该加上日志，记录报错的消息
+*/
+public class AddInfo extends Thread{
+    private String tid;
+    private String message;
+    public AddInfo(String tid,String message){
+        this.tid = tid;
+        this.message = message;
     }
-
+    @Override
+    public void run() {
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "insert into teamLogs(tid,information)values(?,?)";
+        try {
+            queryRunner.update(sql,new Object[]{tid,message});
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
