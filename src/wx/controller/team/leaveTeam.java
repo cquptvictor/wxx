@@ -20,9 +20,10 @@ public class leaveTeam extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String openId =(String)request.getSession().getAttribute("token");
         String tid = request.getParameter("tid");
+        //自己退出团队就没有uid和operator
         String uid = request.getParameter("uid");
-        String name = request.getParameter("name");
         String operator = request.getParameter("operator");
+        String name = request.getParameter("name");
         PrintWriter printWriter = response.getWriter();
         TeamService teamService = new TeamService();
         if(uid == null || operator == null)//为空表示是退出团队

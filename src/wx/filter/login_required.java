@@ -5,7 +5,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/*
+限制用户必须是登录的
+*/
 @WebFilter(filterName = "Filter")
 public class login_required implements Filter {
     public void destroy() {

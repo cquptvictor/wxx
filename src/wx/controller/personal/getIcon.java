@@ -1,7 +1,7 @@
 package wx.controller.personal;
 
 import com.google.gson.Gson;
-import wx.domain.Label;
+import wx.domain.personal.Label;
 import wx.service.Service;
 import wx.utils.JsonUtils;
 
@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

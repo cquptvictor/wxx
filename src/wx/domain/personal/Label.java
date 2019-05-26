@@ -1,4 +1,4 @@
-package wx.domain;
+package wx.domain.personal;
 
 public class Label {
     private String label;

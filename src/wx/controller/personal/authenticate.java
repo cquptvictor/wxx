@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 @WebServlet(name = "Servlet")
@@ -25,7 +26,7 @@ public class authenticate extends HttpServlet {
         HttpSession session = request.getSession();
         String openId = (String)session.getAttribute("token");
         //String openId = "oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ";
-        OutputStream outputStream = response.getOutputStream();
+        PrintWriter printWriter = response.getWriter();
         //要发送请求的那种
         if (code != null) {
             String[] value = null;
@@ -37,10 +38,10 @@ public class authenticate extends HttpServlet {
             if(value[0] != null){
                 session.setAttribute("token",value[0]);
                 session.setAttribute("isSignIn",value[1]);
-               outputStream.write(gson.toJson("{'static':1}").getBytes("UTF8"));
+                printWriter.write(gson.toJson("{'static':1}"));
            }
            else{
-               outputStream.write(gson.toJson("{'static':0}").getBytes("UTF8"));
+                printWriter.write(gson.toJson("{'static':0}"));
            }
         }
         //不用重新发送请求
@@ -49,15 +50,15 @@ public class authenticate extends HttpServlet {
                 String isSignIn;
                 if((isSignIn = service.authenticateById(openId)) != null){
                     session.setAttribute("isSignIn",isSignIn);
-                    outputStream.write(gson.toJson("{'static':1}").getBytes("UTF8"));}
+                    printWriter.write(gson.toJson("{'static':1}"));}
                 else
-                    outputStream.write(gson.toJson("{'static':0}").getBytes("UTF8"));
+                    printWriter.write(gson.toJson("{'static':0}"));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         //如果两个参数都没有
         else
-            outputStream.write(gson.toJson("{'static':0}").getBytes("UTF8"));
+            printWriter.write(gson.toJson("{'static':0}"));
     }
 }

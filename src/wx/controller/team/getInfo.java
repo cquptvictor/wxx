@@ -1,9 +1,7 @@
 package wx.controller.team;
 
 import com.google.gson.Gson;
-import wx.domain.Team;
 import wx.service.TeamService;
-import wx.utils.JdbcUtils;
 import wx.utils.JsonUtils;
 
 import javax.servlet.ServletException;

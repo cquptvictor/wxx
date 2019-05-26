@@ -5,7 +5,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/*
+指定编码
+*/
 @WebFilter(filterName = "encodingFilter")
 public class encodingFilter implements Filter {
     public void destroy() {

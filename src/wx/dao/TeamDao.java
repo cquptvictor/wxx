@@ -4,10 +4,9 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import wx.domain.Information;
-import wx.domain.Team;
-import wx.domain.TeamBill;
-import wx.domain.TeamMember;
+import wx.domain.team.Team;
+import wx.domain.team.TeamBill;
+import wx.domain.team.TeamMember;
 import wx.utils.JdbcUtils;
 
 import java.sql.Connection;
@@ -46,20 +45,21 @@ public class TeamDao {
     public List<Team> getTeam(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
         String sql = "select tid,teamName as name,isAdministrator from team_member where openId = ?  limit ?,10";
-        List<Team> list = null;
         try {
-             list = queryRunner.query(sql,new BeanListHandler<>(Team.class),params);
+             return queryRunner.query(sql,new BeanListHandler<>(Team.class),params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
+        return null;
     }
     public List<TeamBill> getTeamBill(Object[] params,Object[] params2){
         QueryRunner queryRunner = new QueryRunner();
         List<TeamBill> list = null;
         //多个sql应该加事务
         try(Connection connection = JdbcUtils.getConnection()){
+            //获取账单数据
             String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks,openId = ? as isSelf,type,time from team_bill where tid = ? limit ?,10";
+            //更新最近访问时间
             String sql2 = "update last_read_record set lastReadTime = now() where openId = ? and tid = ?";
             connection.setAutoCommit(false);
             try {
@@ -77,8 +77,9 @@ public class TeamDao {
         return list;
     }
 
-        public List<TeamMember> getTeamMember(Object[] params){
+    public List<TeamMember> getTeamMember(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        //获取成员数据
         String sql = "select uid,tMemberName as nickName,isAdministrator from team_member where tid = ? limit ?,10";
         try {
             return queryRunner.query(sql,new BeanListHandler<>(TeamMember.class),params);
@@ -90,7 +91,8 @@ public class TeamDao {
 
     public Boolean delTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete  from team_bill where tid = ? and id = ?";
+        //删除指定数据
+        String sql = "delete from team_bill where tid = ? and id = ?";
         try {
             if(queryRunner.update(sql,params) == 1)
                 return true;
@@ -103,7 +105,6 @@ public class TeamDao {
     public String addTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
         String sql = "insert into team_bill(openId,name,tid,amount,label,remarks,type,time)values(?,?,?,?,?,?,?,?)";
-        //String sql2 = "select id from team_bill where openId = ? and name = ? and tid = ? and amount = ? and label = ? and remarks = ? and type = ? and time = ?";
         //返回最新的主键自增生成的id（bigInteger）,不会被其他线程影响，连续插入以第一个的id为准
         String sql2 = "select LAST_INSERT_ID()";
         try {
@@ -118,7 +119,9 @@ public class TeamDao {
 
     public Boolean addNewMember(Object[] params,Object[] params2){
         QueryRunner queryRunner = new QueryRunner();
+        //数据库中添加相应新成员
         String sql = "insert into team_member(openId,tid,uid,tMemberName,teamName)values(?,?,?,?,?)";
+        //插入一条新消息到最后访问时间表中
         String sql2 = "insert into last_read_record(openId,tid)values(?,?)";
         try(Connection connection = JdbcUtils.getConnection()) {
             try {
@@ -132,6 +135,18 @@ public class TeamDao {
                 e.printStackTrace();
                 connection.rollback();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean findMember(Object[] params){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "select count openId from team_member where tid = ? and openId = ?";
+        try {
+            if(queryRunner.query(sql,new ArrayHandler(),params) != null);
+                return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -177,13 +192,13 @@ public class TeamDao {
 
     public List getInfo(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select information  from team_logs where tid = ? order by time limit ?,10 ";
-        List list = null;
+        //时间从现在到过去，应该是降序
+        String sql = "select information from team_logs where tid = ? order by time DESC limit ?,10 ";
         try {
-            list =  queryRunner.query(sql,new ArrayListHandler(),params);
+            return queryRunner.query(sql,new ArrayListHandler(),params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
+        return null;
     }
 }

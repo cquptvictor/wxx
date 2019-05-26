@@ -23,7 +23,6 @@ public class editBill extends HttpServlet {
             String reamrks = request.getParameter("remarks");
             String time = request.getParameter("time");
             String type = request.getParameter("type");
-
             Service service = new Service();
             PrintWriter printWriter = response.getWriter();
             if(service.editBill(Integer.valueOf(bid), Float.valueOf(amount), label, reamrks, type,time))

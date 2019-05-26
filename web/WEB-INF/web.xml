@@ -36,6 +36,30 @@
         <filter-name>login_required</filter-name>
         <url-pattern>/graph</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/info</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/*Badge</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/icon*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/set*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/leave*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/join</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>auth</servlet-name>
         <servlet-class>wx.controller.personal.authenticate</servlet-class>

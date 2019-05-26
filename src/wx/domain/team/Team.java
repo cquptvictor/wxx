@@ -1,4 +1,4 @@
-package wx.domain;
+package wx.domain.team;
 
 public class Team {
     private String tid;

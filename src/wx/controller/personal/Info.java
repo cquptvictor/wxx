@@ -1,7 +1,7 @@
 package wx.controller.personal;
 
 import com.google.gson.Gson;
-import wx.domain.userInfo;
+import wx.domain.personal.userInfo;
 import wx.service.Service;
 import wx.utils.JsonUtils;
 

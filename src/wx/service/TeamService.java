@@ -74,22 +74,26 @@ public class TeamService {
             add.BillInfo(tid,nickName,EventMessage.AddBill,amount,label,time);
             return bid;
         }else
-            return bid;
+            return null;
     }
     /*
         团队添加新成员
     */
     public Boolean addNewMember(String openId,String tid,String name,String tname){
         String uid = UUID.randomUUID().toString();//生成团队内的唯一标识符
-        Object[] params = new Object[]{openId,tid,uid,name,tname};
-        Object[] params2 = new Object[]{openId,tid};
         TeamDao teamDao = new TeamDao();
-        if(teamDao.addNewMember(params,params2)){
-            addInfo add = new addInfo();//添加日志
-            add.MemberInfo(tid,null,name,EventMessage.NewMember, TimeUtils.getNow());
-            return true;
+        Object[] params1 = new Object[]{tid,openId};
+        if(!teamDao.findMember(params1)){
+            Object[] params = new Object[]{openId,tid,uid,name,tname};
+            Object[] params2 = new Object[]{openId,tid};
+            if(teamDao.addNewMember(params,params2)){
+                addInfo add = new addInfo();//添加日志
+                add.MemberInfo(tid,null,name,EventMessage.NewMember, TimeUtils.getNow());
+                return true;
         }else
             return  false;
+        }else
+            return false;
     }
     /*
     成员退出团队
@@ -100,6 +104,7 @@ public class TeamService {
         if(dao.leaveTeam(params))
         {
             addInfo add = new addInfo();
+            //自己离开团队是没有operator的
             add.MemberInfo(tid,null,name,EventMessage.ExitTeam,TimeUtils.getNow());
             return true;
         }else

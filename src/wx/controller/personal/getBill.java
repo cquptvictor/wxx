@@ -1,9 +1,8 @@
 package wx.controller.personal;
 
 import com.google.gson.Gson;
-import wx.domain.Bill;
+import wx.domain.personal.Bill;
 import wx.service.Service;
-import wx.utils.Verification;
 import wx.utils.JsonUtils;
 
 import javax.servlet.ServletException;
@@ -30,23 +29,13 @@ public class getBill extends HttpServlet {
         Service service = new Service();
         List<Bill> list = null;
         if(type.equals("0")){
-            if(Verification.verify_time(time,2))
-            {
                 list = service.getBill(openId,time,0);
-            }else
-                printWriter.write(gson.toJson("参数不合法"));
-
         }
         else if(type.equals("1"))//日账
             {
-                if(Verification.verify_time(time,3))
-                {
-                    list = service.getBill(openId,time,1);
-                }else
-                    printWriter.write(gson.toJson("参数不合法"));
-
+                list = service.getBill(openId,time,1);
             }else
-            printWriter.write(gson.toJson("{'static':0}"));
+                printWriter.write(gson.toJson("{'static':0}"));
         printWriter.write("{'data':"+gson.toJson(list)+"}");
     }
 }

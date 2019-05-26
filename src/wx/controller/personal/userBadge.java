@@ -28,6 +28,5 @@ public class userBadge extends HttpServlet {
             printWriter.write("{'static':1}");
         else
             printWriter.write("{'static':0}");
-
     }
 }

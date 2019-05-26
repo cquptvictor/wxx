@@ -1,7 +1,7 @@
 package wx.controller.team;
 
 import com.google.gson.Gson;
-import wx.domain.TeamBill;
+import wx.domain.team.TeamBill;
 import wx.service.TeamService;
 import wx.utils.JsonUtils;
 

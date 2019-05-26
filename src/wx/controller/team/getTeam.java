@@ -1,7 +1,7 @@
 package wx.controller.team;
 
 import com.google.gson.Gson;
-import wx.domain.Team;
+import wx.domain.team.Team;
 import wx.service.TeamService;
 import wx.utils.JsonUtils;
 

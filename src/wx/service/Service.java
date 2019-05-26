@@ -3,9 +3,9 @@ package wx.service;
 import com.google.gson.Gson;
 import wx.dao.userDao;
 import wx.domain.AuthenticationCode;
-import wx.domain.Bill;
-import wx.domain.Label;
-import wx.domain.userInfo;
+import wx.domain.personal.Bill;
+import wx.domain.personal.Label;
+import wx.domain.personal.userInfo;
 import wx.utils.HttpURLConnectionHelper;
 import wx.utils.JsonUtils;
 

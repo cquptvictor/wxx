@@ -4,13 +4,12 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import wx.domain.Bill;
-import wx.domain.Graph;
-import wx.domain.Label;
-import wx.domain.userInfo;
+import wx.domain.personal.Bill;
+import wx.domain.personal.Graph;
+import wx.domain.personal.Label;
+import wx.domain.personal.userInfo;
 import wx.utils.JdbcUtils;
 
-import java.io.ObjectStreamException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;

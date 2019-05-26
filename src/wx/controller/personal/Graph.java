@@ -35,7 +35,6 @@ public class Graph extends HttpServlet {
             beginTime = TimeUtils.getWeek(offset);
         else if(category.equals("month")) {
             beginTime = TimeUtils.getMonth(offset);
-            System.out.println(beginTime);
         }
         else if (category.equals("year"))
             beginTime = TimeUtils.getYear(offset);
