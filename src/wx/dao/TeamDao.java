@@ -169,7 +169,7 @@ public class TeamDao {
 
     public Boolean kickOut(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete from team_member where tid = ? and openId = ? and uid = ?";
+        String sql = "delete team_member from team_member where tid = ? and openId = ? and uid = ?";
         try {
             queryRunner.update(sql,params);
             return true;
