@@ -1,8 +1,8 @@
 package wx.service;
 
 import wx.dao.TeamDao;
-import wx.domain.TeamBill;
-import wx.domain.TeamMember;
+import wx.domain.team.TeamBill;
+import wx.domain.team.TeamMember;
 import wx.utils.TimeUtils;
 import wx.utils.notification.EventMessage;
 import wx.utils.notification.addInfo;
