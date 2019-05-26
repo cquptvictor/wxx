@@ -25,8 +25,9 @@ public class getTeam extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String openId = (String)request.getSession().getAttribute("token");
+        String page = request.getParameter("page");
         TeamService teamService = new TeamService();
-        List<Team> list = teamService.getTeam(openId);
+        List<Team> list = teamService.getTeam(openId,page);
         Gson gson = JsonUtils.getGson();
         PrintWriter printWriter = response.getWriter();
         printWriter.write(gson.toJson(list));

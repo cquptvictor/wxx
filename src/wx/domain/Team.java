@@ -2,6 +2,8 @@ package wx.domain;
 
 public class Team {
     private String tid;
+    private String name;
+    private String isAdministrator;
 
     public String getName() {
         return name;
@@ -11,8 +13,6 @@ public class Team {
         this.name = name;
     }
 
-    private String name;
-    private String isAdministrator;
 
     public String getTid() {
         return tid;

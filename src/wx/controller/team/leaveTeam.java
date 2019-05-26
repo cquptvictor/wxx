@@ -25,13 +25,14 @@ public class leaveTeam extends HttpServlet {
         String operator = request.getParameter("operator");
         PrintWriter printWriter = response.getWriter();
         TeamService teamService = new TeamService();
-        if(uid == null)//为空表示是退出团队
+        if(uid == null || operator == null)//为空表示是退出团队
         {
             if(teamService.leaveTeam(tid,openId,name))
                 printWriter.write("{'static':1}");
             else
                 printWriter.write("{'static':0}");
         }else{
+            //先验证是否有权限踢人
                 if(isAdministrator.auth(openId,tid) && teamService.kickOut(tid,openId,uid,name,operator))
                     printWriter.write("{'static':1}");
                 else

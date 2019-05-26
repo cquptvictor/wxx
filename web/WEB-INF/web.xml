@@ -32,6 +32,10 @@
         <filter-name>login_required</filter-name>
         <url-pattern>/graph</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/setTeam</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>auth</servlet-name>
         <servlet-class>wx.controller.personal.authenticate</servlet-class>
@@ -120,6 +124,7 @@
         <servlet-name>addBadge</servlet-name>
         <url-pattern>/addBadge</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>addTeamBill</servlet-name>
         <servlet-class>wx.controller.team.delTeamBill</servlet-class>
@@ -128,14 +133,16 @@
         <servlet-name>addTeamBill</servlet-name>
         <url-pattern>/addTeamBill</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>delTeamBill</servlet-name>
         <servlet-class>wx.controller.team.delTeamBill</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>delTeamBill</servlet-name>
-        <url-pattern>wx.controller.team.delTeamBill</url-pattern>
+        <url-pattern>/defTeamBill</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>editTeamBill</servlet-name>
         <servlet-class>wx.controller.team.editTeamBill</servlet-class>
@@ -144,14 +151,16 @@
         <servlet-name>editTeamBill</servlet-name>
         <url-pattern>/editTeamBill</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>getInfo</servlet-name>
-        <servlet-class>wx.controller.team.editTeamBill</servlet-class>
+        <servlet-class>wx.controller.team.getInfo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getInfo</servlet-name>
-        <url-pattern>wx.controller.team.getInfo</url-pattern>
+        <url-pattern>/getInfo</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>getTeam</servlet-name>
         <servlet-class>wx.controller.team.getTeam</servlet-class>
@@ -160,6 +169,7 @@
         <servlet-name>getTeam</servlet-name>
         <url-pattern>/getTeam</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>getTeamBill</servlet-name>
         <servlet-class>wx.controller.team.getTeamBill</servlet-class>
@@ -168,14 +178,16 @@
         <servlet-name>getTeamBill</servlet-name>
         <url-pattern>/getTeamBill</url-pattern>
     </servlet-mapping>
-<servlet>
-    <servlet-name>getTeamMember</servlet-name>
-    <servlet-class>wx.controller.team.getTeamBill</servlet-class>
-</servlet>
+
+    <servlet>
+        <servlet-name>getTeamMember</servlet-name>
+        <servlet-class>wx.controller.team.getTeamBill</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getTeamMember</servlet-name>
         <url-pattern>/getTeamMember</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>joinTeam</servlet-name>
         <servlet-class>wx.controller.team.joinTeam</servlet-class>
@@ -184,6 +196,7 @@
         <servlet-name>joinTeam</servlet-name>
         <url-pattern>/joinTeam</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>leaveTeam</servlet-name>
         <servlet-class>wx.controller.team.leaveTeam</servlet-class>
@@ -192,6 +205,7 @@
         <servlet-name>leaveTeam</servlet-name>
         <url-pattern>/leaveTeam</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>setTeam</servlet-name>
         <servlet-class>wx.controller.team.setTeam</servlet-class>

@@ -9,8 +9,8 @@ import wx.utils.JsonUtils;
  */
 public class addInfo {
     //关于账单操作的通知
-    public Gson gson = JsonUtils.getGson();
-    public Thread thread = null;
+    private Gson gson = JsonUtils.getGson();
+    private Thread thread = null;
     public void BillInfo(String tid,String name, String event, String amount, String label, String operationTime){
         BillMessage billMessage = new BillMessage(name,event,amount,label,operationTime);
         thread = new AddInfoThread(tid,gson.toJson(billMessage));

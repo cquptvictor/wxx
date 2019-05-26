@@ -34,8 +34,7 @@ public class editTeamBill extends HttpServlet {
                 else
                     printWriter.write("{'static':0}");
             }else{
-                response.setStatus(401);
-                printWriter.write("401 Unauthorized");
+                printWriter.write("{'state':401}");
             }
     }
 }

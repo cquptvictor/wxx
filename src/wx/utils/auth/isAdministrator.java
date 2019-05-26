@@ -3,6 +3,7 @@ package wx.utils.auth;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayHandler;
 import wx.utils.JdbcUtils;
+import wx.utils.ResultNumHandler;
 
 import java.sql.SQLException;
 /*
@@ -12,7 +13,7 @@ public class isAdministrator {
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
         String sql = "select isAdministrator from team where tid = ? and uid = ";
         try {
-            if(queryRunner.query(sql,new ArrayHandler(),new Object[]{openId,tid})[0] != null)
+            if(queryRunner.query(sql,new ResultNumHandler(),new Object[]{openId,tid}) != null)
                 return true;
         } catch (SQLException e) {
             e.printStackTrace();

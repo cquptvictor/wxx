@@ -1,7 +1,6 @@
 package wx.dao;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import wx.domain.Information;
 import wx.domain.Team;
@@ -15,17 +14,25 @@ import java.util.List;
 
 public class TeamDao {
     /*创建失败则回滚*/
-    public Boolean createTeam(Object[] params){
+    public Boolean createTeam(Object[] params,Object[] params2){
         QueryRunner query= new QueryRunner();
         try(Connection connection = JdbcUtils.getConnection()){
             connection.setAutoCommit(false);
+            //插入到团队表
             String sql = "insert into team(tid,openId,tname) values(?,?,?)";
-            String sql2 = "insert into teamMember(tid,tMember,tname,isAdministrator)values(?,?,?,1)";
+            //插入到团队成员表，创建者默认为管理员
+            String sql2 = "insert into team_member(tid,openId,tMemberName,teamName,uid,isAdministrator)values(?,?,?,?,?,1)";
+            //插入到最后访问时间表
+            String sql3 = "insert into last_read_record(openId,tid,lastReadTime)values(?,?,NOW())";
             try{
                 query.update(connection,sql,params);
-                query.update(connection,sql2,params);
+                query.update(connection,sql2,params2);
+                query.update(connection,sql3,params2);
+                connection.commit();
+                connection.setAutoCommit(true);
                 return true;
             }catch (SQLException e){
+                e.printStackTrace();
                 connection.rollback();
             }
         } catch (SQLException e) {
@@ -34,59 +41,66 @@ public class TeamDao {
         return false;
     }
 
-    public List<Team> getTeam(String openId){
+    public List<Team> getTeam(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select tid,tname as name,isAdministrator from teamMember where openId = ?";
+        String sql = "select tid,teamName as name,isAdministrator from team_member where openId = ?  limit ?,10";
         List<Team> list = null;
         try {
-             list = queryRunner.query(sql,new BeanListHandler<>(Team.class),openId);
+             list = queryRunner.query(sql,new BeanListHandler<>(Team.class),params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
     }
-    public List<TeamBill> getTeamBill(Object[] params){
-        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        //多个sql应该加事务
-        String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks，openId = ? as isSelf from teamBill where teamId = ? limit ?,10";
-        String sql2 = "update LastReadRecord set lastReadTime = NOW() where openId = ? and tid = ?";
+    public List<TeamBill> getTeamBill(Object[] params,Object[] params2){
+        QueryRunner queryRunner = new QueryRunner();
         List<TeamBill> list = null;
-        try {
-            list = queryRunner.query(sql,new BeanListHandler<>(TeamBill.class),params);
-            queryRunner.update(sql2,new Object[]{params[0],params[1]});//更新对这个团队账单的最后一次访问时间
+        //多个sql应该加事务
+        try(Connection connection = JdbcUtils.getConnection()){
+            String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks，openId = ? as isSelf from team_bill where teamId = ? limit ?,10";
+            String sql2 = "update last_read_record set lastReadTime = NOW() where openId = ? and tid = ?";
+            connection.setAutoCommit(false);
+            try {
+                list = queryRunner.query(sql,new BeanListHandler<>(TeamBill.class),params);
+                queryRunner.update(sql2,params2);//更新对这个团队账单的最后一次访问时间
+                connection.commit();
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                connection.rollback();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
     }
 
-    public List<TeamMember> getTeamMember(Object[] params){
+        public List<TeamMember> getTeamMember(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select uid,tMemberName as nickName,isAdministrator from teamMember where tid = ? limit ?,10";
-        List<TeamMember> list = null;
+        String sql = "select uid,tMemberName as nickName,isAdministrator from team_member where tid = ? limit ?,10";
         try {
-            list = queryRunner.query(sql,params,new BeanListHandler<>(TeamMember.class));
+            return queryRunner.query(sql,new BeanListHandler<>(TeamMember.class),params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
+        return null;
     }
 
     public Boolean delTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete from teamBill where tid = ? and bid = ?";
+        String sql = "delete from team_bill where tid = ? and bid = ?";
         try {
             if(queryRunner.update(sql,params) == 1)
                 return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  false;
+        return false;
     }
 
     public Boolean addTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "insert into teamBill(openId,name,teamId,amount,label,remarks,type,time)values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into team_bill(openId,name,teamId,amount,label,remarks,type,time)values(?,?,?,?,?,?,?,?)";
         try {
             queryRunner.update(sql,params);
             return true;
@@ -96,12 +110,22 @@ public class TeamDao {
         return false;
     }
 
-    public Boolean addNewMember(Object[] params){
-        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "insert into teamMember(openId,tid,uid,tMemberName)values(?,?,?,?)";
-        try {
-            queryRunner.update(sql,params);
-            return true;
+    public Boolean addNewMember(Object[] params,Object[] params2){
+        QueryRunner queryRunner = new QueryRunner();
+        String sql = "insert into team_member(openId,tid,uid,tMemberName)values(?,?,?,?)";
+        String sql2 = "insert into last_read_record(openId,tid,lastReadTime)values(?,?,NOW())";
+        try(Connection connection = JdbcUtils.getConnection()) {
+            try {
+                connection.setAutoCommit(false);
+                queryRunner.update(sql, params);
+                queryRunner.update(sql, params2);
+                connection.commit();
+                connection.setAutoCommit(true);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                connection.rollback();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,7 +135,7 @@ public class TeamDao {
     public Boolean leaveTeam(Object[] params)
     {
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete * from teamMember where tid = ? and openId = ?";
+        String sql = "delete * from team_member where tid = ? and openId = ?";
         try {
             queryRunner.update(sql,params);
             return true;
@@ -123,7 +147,7 @@ public class TeamDao {
 
     public Boolean kickOut(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete * from teamMember where tid = ? and openId = ? and uid = ?";
+        String sql = "delete * from team_member where tid = ? and openId = ? and uid = ?";
         try {
             queryRunner.update(sql);
             return true;

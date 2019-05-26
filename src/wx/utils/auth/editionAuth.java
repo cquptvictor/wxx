@@ -13,7 +13,7 @@ public class editionAuth {
         else//验证是不是自己的账单
         {
             QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-            String sql = "select * from teamBill where tid=? and openId=?,bid=?";
+            String sql = "select * from team_bill where tid=? and openId=?,bid=?";
             try {
                 if(queryRunner.update(sql,new ResultNumHandler(),new Object[]{tid,openId,bid}) != 0)
                     return true;

@@ -11,26 +11,31 @@ import java.util.List;
 import java.util.UUID;
 
 public class TeamService {
-    public String createTeam(String openId, String teamName){
+    public String createTeam(String openId, String teamName,String uname){
+        //生成团队和团队内用户的uuid
         String tid = UUID.randomUUID().toString();
+        String uid = UUID.randomUUID().toString();
         Object[] params = new Object[]{tid,openId,teamName};
+        Object[] params2 = new Object[]{tid,openId,uname,teamName,uid};
         TeamDao dao = new TeamDao();
-        if(dao.createTeam(params))
+        if(dao.createTeam(params,params2))
             return tid;
         else
             return null;
     }
-    public List getTeam(String openId){
+    public List getTeam(String openId,String page){
         TeamDao dao = new TeamDao();
-        return dao.getTeam(openId);
+        Object[] params = new Object[]{openId,(Integer.valueOf(page)-1)*10};
+        return dao.getTeam(params);
     }
     /*
     获取团队账单
      */
     public List<TeamBill> getTeamBill(String tid, String page,String openId){
-        Object[] params = new Object[]{openId,tid,page};
+        Object[] params = new Object[]{openId,tid,(Integer.valueOf(page)-1)*10};
+        Object[] params2 = new Object[]{openId,tid};
         TeamDao dao = new TeamDao();
-        return dao.getTeamBill(params);
+        return dao.getTeamBill(params,params2);
     }
     /*
     获取团队成员
@@ -44,7 +49,7 @@ public class TeamService {
        删除账单
      */
     public Boolean delTeamBill(String tid,String bid,String name,String amount,String label) {
-        Object[] params = new Object[]{ tid, bid};
+        Object[] params = new Object[]{tid, bid};
         TeamDao dao = new TeamDao();
         if(dao.delTeamBill(params))
         {
@@ -73,11 +78,12 @@ public class TeamService {
         团队添加新成员
     */
     public Boolean addNewMember(String openId,String tid,String name){
-        String uid = tid+System.currentTimeMillis();
+        String uid = UUID.randomUUID().toString();//生成团队内的唯一标识符
         Object[] params = new Object[]{openId,tid,uid,name};
+        Object[] params2 = new Object[]{openId,tid};
         TeamDao teamDao = new TeamDao();
-        if(teamDao.addNewMember(params)){
-            addInfo add = new addInfo();
+        if(teamDao.addNewMember(params,params2)){
+            addInfo add = new addInfo();//添加日志
             add.MemberInfo(tid,null,name,EventMessage.NewMember, TimeUtils.getNow());
             return true;
         }else
@@ -92,7 +98,7 @@ public class TeamService {
         if(dao.leaveTeam(params))
         {
             addInfo add = new addInfo();
-            add.MemberInfo(tid,null,name,EventMessage.NewMember,TimeUtils.getNow());
+            add.MemberInfo(tid,null,name,EventMessage.ExitTeam,TimeUtils.getNow());
             return true;
         }else
             return false;
@@ -106,7 +112,7 @@ public class TeamService {
         if(teamDao.kickOut(params))
         {
             addInfo add = new addInfo();
-            add.MemberInfo(tid,operator,name,EventMessage.NewMember,TimeUtils.getNow());
+            add.MemberInfo(tid,operator,name,EventMessage.KickOutOfTeam,TimeUtils.getNow());
             return true;
         }else
             return false;
@@ -120,7 +126,7 @@ public class TeamService {
         TeamDao dao = new TeamDao();
         if(dao.editTeamBill(params)){
             addInfo add = new addInfo();
-            add.BillInfo(tid,nickName,EventMessage.AddBill,amount,label,TimeUtils.getNow());
+            add.BillInfo(tid,nickName,EventMessage.EditBill,amount,label,TimeUtils.getNow());
             return true;
         }else
             return false;

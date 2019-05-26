@@ -27,6 +27,6 @@ public class getTeamMember extends HttpServlet {
         PrintWriter printWriter = response.getWriter();
         TeamService teamService = new TeamService();
         List<TeamMember> list = teamService.getTeamMember(tid,page);
-        printWriter.write("{'data':{"+gson.toJson(list)+"]}");
+        printWriter.write("{'data':"+gson.toJson(list)+"}");
     }
 }

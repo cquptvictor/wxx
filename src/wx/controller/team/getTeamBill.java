@@ -28,6 +28,6 @@ public class getTeamBill extends HttpServlet {
         Gson gson = JsonUtils.getGson();
         TeamService teamService = new TeamService();
         List<TeamBill> list = teamService.getTeamBill(tid,page,openId);
-        printWriter.write("{'data':["+gson.toJson(list)+"]}");
+        printWriter.write("{'data':"+gson.toJson(list)+"}");
     }
 }

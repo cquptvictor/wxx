@@ -18,9 +18,8 @@ public class AddInfoThread extends Thread{
     }
     @Override
     public void run() {
-        Gson gson = JsonUtils.getGson();
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "insert into teamLogs(tid,information)values(?,?)";
+        String sql = "insert into team_logs(tid,information)values(?,?)";
         try {
             queryRunner.update(sql,new Object[]{tid,message});
         } catch (SQLException e) {
