@@ -8,6 +8,24 @@ public class TeamBill {
     private String label;
     private String remarks;
     private String isSelf;
+    private String type;
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getIsSelf() {
         return isSelf;

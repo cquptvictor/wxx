@@ -17,8 +17,9 @@ public class TeamService {
         String uid = UUID.randomUUID().toString();
         Object[] params = new Object[]{tid,openId,teamName};
         Object[] params2 = new Object[]{tid,openId,uname,teamName,uid};
+        Object[] params3 = new Object[]{tid,openId};
         TeamDao dao = new TeamDao();
-        if(dao.createTeam(params,params2))
+        if(dao.createTeam(params,params2,params3))
             return tid;
         else
             return null;
@@ -63,23 +64,24 @@ public class TeamService {
     /*
     添加账单
     */
-    public Boolean addTeamBill(String openId,String nickName,String tid,String amount,String label,String remarks,String time,String type){
+    public String addTeamBill(String openId,String nickName,String amount,String tid,String label,String remarks,String type,String time){
         Object[] params = {openId,nickName,tid,amount,label,remarks,time,type};
         TeamDao dao = new TeamDao();
-        if(dao.addTeamBill(params))
+        String bid = null;
+        if((bid = dao.addTeamBill(params)) != null)
         {   //添加通知
             addInfo add = new addInfo();
             add.BillInfo(tid,nickName,EventMessage.AddBill,amount,label,time);
-            return true;
+            return bid;
         }else
-            return false;
+            return bid;
     }
     /*
         团队添加新成员
     */
-    public Boolean addNewMember(String openId,String tid,String name){
+    public Boolean addNewMember(String openId,String tid,String name,String tname){
         String uid = UUID.randomUUID().toString();//生成团队内的唯一标识符
-        Object[] params = new Object[]{openId,tid,uid,name};
+        Object[] params = new Object[]{openId,tid,uid,name,tname};
         Object[] params2 = new Object[]{openId,tid};
         TeamDao teamDao = new TeamDao();
         if(teamDao.addNewMember(params,params2)){
@@ -122,7 +124,7 @@ public class TeamService {
     编辑账单
     */
     public Boolean editTeamBill(String tid, String bid, String nickName, String amount, String label, String remarks){
-        Object[] params = new Object[]{tid,bid,nickName,amount,label,remarks};
+        Object[] params = new Object[]{nickName,amount,label,remarks,bid,tid};
         TeamDao dao = new TeamDao();
         if(dao.editTeamBill(params)){
             addInfo add = new addInfo();

@@ -22,13 +22,14 @@ public class joinTeam extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String openId = (String) request.getSession().getAttribute("token");
-        String isJoin = request.getParameter("isJoin");
+        String isJoin = request.getParameter("isJoin");//1为同意，2为不同意
         String tid = request.getParameter("tid");
         String name = request.getParameter("name");
-        if(isJoin.equals("true")) {
+        String tname = request.getParameter("tname");
+        if(isJoin.equals("1")) {
             PrintWriter printWriter = response.getWriter();
             TeamService teamService = new TeamService();
-            if(teamService.addNewMember(openId,tid,name)) {
+            if(teamService.addNewMember(openId,tid,name,tname)) {
                 printWriter.write("{'static':1}");
             }else
                 printWriter.write("{'static':0}");

@@ -53,7 +53,7 @@ public class Service {
            userDao dao = new userDao();
            String isSignIn = null;
            try {
-               isSignIn = dao.findUser(openId)[2];
+               isSignIn = dao.findUser(openId)[1];
            }catch (IndexOutOfBoundsException e){
                e.printStackTrace();
            }

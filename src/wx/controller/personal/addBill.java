@@ -22,7 +22,7 @@ public class addBill extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String openId = (String)session.getAttribute("token");
-       // String openId= "oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg";
+        // openId= "oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg";
         String isSignIn = (String)session.getAttribute("isSignIn");
 
         String label = request.getParameter("label");
@@ -33,20 +33,18 @@ public class addBill extends HttpServlet {
         Service service = new Service();
         Gson gson = JsonUtils.getGson();
         PrintWriter printWriter = response.getWriter();
-        if( isSignIn.equals("false")) {
-           if(service.signIn(openId)) {
-                session.setAttribute("isSignIn", "true");
-           }
-           }
+
         //每天的第一笔帐要发送一个额外的参数
         if(openId != null && service.addBill(openId,label,remarks,time,amount,type))
             if(isSignIn.equals("true"))
                 printWriter.write(gson.toJson("{'static':1}"));
-             else
+             else {
                 printWriter.write(gson.toJson("{'static':1,'isSignIn':true}"));
-
+                if(service.signIn(openId)) {
+                    session.setAttribute("isSignIn", "true");
+                }
+            }
         else
             printWriter.write(gson.toJson("{'static':0}"));
-
     }
 }

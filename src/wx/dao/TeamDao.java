@@ -1,6 +1,8 @@
 package wx.dao;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ArrayHandler;
+import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import wx.domain.Information;
 import wx.domain.Team;
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class TeamDao {
     /*创建失败则回滚*/
-    public Boolean createTeam(Object[] params,Object[] params2){
+    public Boolean createTeam(Object[] params,Object[] params2,Object[] params3){
         QueryRunner query= new QueryRunner();
         try(Connection connection = JdbcUtils.getConnection()){
             connection.setAutoCommit(false);
@@ -23,11 +25,11 @@ public class TeamDao {
             //插入到团队成员表，创建者默认为管理员
             String sql2 = "insert into team_member(tid,openId,tMemberName,teamName,uid,isAdministrator)values(?,?,?,?,?,1)";
             //插入到最后访问时间表
-            String sql3 = "insert into last_read_record(openId,tid,lastReadTime)values(?,?,NOW())";
+            String sql3 = "insert into last_read_record(openId,tid)values(?,?)";
             try{
                 query.update(connection,sql,params);
                 query.update(connection,sql2,params2);
-                query.update(connection,sql3,params2);
+                query.update(connection,sql3,params3);
                 connection.commit();
                 connection.setAutoCommit(true);
                 return true;
@@ -57,12 +59,12 @@ public class TeamDao {
         List<TeamBill> list = null;
         //多个sql应该加事务
         try(Connection connection = JdbcUtils.getConnection()){
-            String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks，openId = ? as isSelf from team_bill where teamId = ? limit ?,10";
-            String sql2 = "update last_read_record set lastReadTime = NOW() where openId = ? and tid = ?";
+            String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks,openId = ? as isSelf,type,time from team_bill where tid = ? limit ?,10";
+            String sql2 = "update last_read_record set lastReadTime = now() where openId = ? and tid = ?";
             connection.setAutoCommit(false);
             try {
-                list = queryRunner.query(sql,new BeanListHandler<>(TeamBill.class),params);
-                queryRunner.update(sql2,params2);//更新对这个团队账单的最后一次访问时间
+                list = queryRunner.query(connection,sql,new BeanListHandler<>(TeamBill.class),params);
+                queryRunner.update(connection,sql2,params2);//更新对这个团队账单的最后一次访问时间
                 connection.commit();
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
@@ -88,7 +90,7 @@ public class TeamDao {
 
     public Boolean delTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete from team_bill where tid = ? and bid = ?";
+        String sql = "delete  from team_bill where tid = ? and id = ?";
         try {
             if(queryRunner.update(sql,params) == 1)
                 return true;
@@ -98,27 +100,31 @@ public class TeamDao {
         return false;
     }
 
-    public Boolean addTeamBill(Object[] params){
+    public String addTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "insert into team_bill(openId,name,teamId,amount,label,remarks,type,time)values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into team_bill(openId,name,tid,amount,label,remarks,type,time)values(?,?,?,?,?,?,?,?)";
+        //String sql2 = "select id from team_bill where openId = ? and name = ? and tid = ? and amount = ? and label = ? and remarks = ? and type = ? and time = ?";
+        //返回最新的主键自增生成的id（bigInteger）,不会被其他线程影响，连续插入以第一个的id为准
+        String sql2 = "select LAST_INSERT_ID()";
         try {
             queryRunner.update(sql,params);
-            return true;
+            String id =String.valueOf(queryRunner.query(sql2,new ArrayHandler())[0]);
+            return id;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public Boolean addNewMember(Object[] params,Object[] params2){
         QueryRunner queryRunner = new QueryRunner();
-        String sql = "insert into team_member(openId,tid,uid,tMemberName)values(?,?,?,?)";
-        String sql2 = "insert into last_read_record(openId,tid,lastReadTime)values(?,?,NOW())";
+        String sql = "insert into team_member(openId,tid,uid,tMemberName,teamName)values(?,?,?,?,?)";
+        String sql2 = "insert into last_read_record(openId,tid)values(?,?)";
         try(Connection connection = JdbcUtils.getConnection()) {
             try {
                 connection.setAutoCommit(false);
-                queryRunner.update(sql, params);
-                queryRunner.update(sql, params2);
+                queryRunner.update(connection,sql, params);
+                queryRunner.update(connection,sql2, params2);
                 connection.commit();
                 connection.setAutoCommit(true);
                 return true;
@@ -147,9 +153,9 @@ public class TeamDao {
 
     public Boolean kickOut(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete * from team_member where tid = ? and openId = ? and uid = ?";
+        String sql = "delete from team_member where tid = ? and openId = ? and uid = ?";
         try {
-            queryRunner.update(sql);
+            queryRunner.update(sql,params);
             return true;
          } catch (SQLException e) {
             e.printStackTrace();
@@ -159,7 +165,7 @@ public class TeamDao {
 
     public Boolean editTeamBill(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "update teamBill set tid = ?,bid = ?, nickName = ?, amount = ?, label = ?, remarks";
+        String sql = "update team_bill set  name = ?, amount = ?, label = ?, remarks=? where id = ? and tid = ?";
         try {
             if(queryRunner.update(sql,params) != 0)
                 return true;
@@ -171,10 +177,10 @@ public class TeamDao {
 
     public List getInfo(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select message from teamLogs where tid = ? order by time limit ?,10 ";
+        String sql = "select information  from team_logs where tid = ? order by time limit ?,10 ";
         List list = null;
         try {
-            list =  queryRunner.query(sql,new BeanListHandler<>(Information.class),params);
+            list =  queryRunner.query(sql,new ArrayListHandler(),params);
         } catch (SQLException e) {
             e.printStackTrace();
         }

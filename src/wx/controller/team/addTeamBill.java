@@ -27,12 +27,10 @@ public class addTeamBill extends HttpServlet {
         String type = request.getParameter("type");
         PrintWriter printWriter = response.getWriter();
         TeamService teamService = new TeamService();
-        if(teamService.addTeamBill(openId,nickName,amount,tid,label,remarks,time,type)){
-            printWriter.write("{'static':1}");
+        String bid = null;
+        if((bid = teamService.addTeamBill(openId,nickName,amount,tid,label,remarks,time,type)) != null){
+            printWriter.write("{'static':1,'bid':"+bid+"}");
         }else
             printWriter.write("{'static':0}");
-
-
-
     }
 }

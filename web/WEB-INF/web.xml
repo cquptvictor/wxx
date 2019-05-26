@@ -18,23 +18,23 @@
     </filter>
     <filter-mapping>
         <filter-name>login_required</filter-name>
-        <url-pattern>/*Bill</url-pattern>
+        <url-pattern>/add*</url-pattern>
     </filter-mapping>
-   <filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/edit*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>login_required</filter-name>
+        <url-pattern>/del*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
        <filter-name>login_required</filter-name>
-       <url-pattern>/Info</url-pattern>
+       <url-pattern>/get*</url-pattern>
    </filter-mapping>
     <filter-mapping>
         <filter-name>login_required</filter-name>
-        <url-pattern>/*con*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>login_required</filter-name>
         <url-pattern>/graph</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>login_required</filter-name>
-        <url-pattern>/setTeam</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>auth</servlet-name>
@@ -127,7 +127,7 @@
 
     <servlet>
         <servlet-name>addTeamBill</servlet-name>
-        <servlet-class>wx.controller.team.delTeamBill</servlet-class>
+        <servlet-class>wx.controller.team.addTeamBill</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addTeamBill</servlet-name>
@@ -140,7 +140,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>delTeamBill</servlet-name>
-        <url-pattern>/defTeamBill</url-pattern>
+        <url-pattern>/delTeamBill</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -181,7 +181,7 @@
 
     <servlet>
         <servlet-name>getTeamMember</servlet-name>
-        <servlet-class>wx.controller.team.getTeamBill</servlet-class>
+        <servlet-class>wx.controller.team.getTeamMember</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getTeamMember</servlet-name>
@@ -194,7 +194,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>joinTeam</servlet-name>
-        <url-pattern>/joinTeam</url-pattern>
+        <url-pattern>/isJoin</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -215,6 +215,6 @@
         <url-pattern>/setTeam</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>1</session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>

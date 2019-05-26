@@ -1,7 +1,6 @@
 package wx.utils.auth;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.ArrayHandler;
 import wx.utils.JdbcUtils;
 import wx.utils.ResultNumHandler;
 
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 public class isAdministrator {
     public static Boolean auth(String openId,String tid){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select isAdministrator from team where tid = ? and uid = ";
+        String sql = "select isAdministrator from team_member where tid = ? and uid = ?";
         try {
             if(queryRunner.query(sql,new ResultNumHandler(),new Object[]{openId,tid}) != null)
                 return true;
