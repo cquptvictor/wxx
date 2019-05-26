@@ -7,6 +7,7 @@ import wx.utils.TimeUtils;
 import wx.utils.notification.EventMessage;
 import wx.utils.notification.addInfo;
 
+import java.security.DrbgParameters;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,8 +65,8 @@ public class TeamService {
     /*
     添加账单
     */
-    public String addTeamBill(String openId,String nickName,String amount,String tid,String label,String remarks,String type,String time){
-        Object[] params = {openId,nickName,tid,amount,label,remarks,time,type};
+    public String addTeamBill(String openId,String nickName,String amount,String tid,String label,String remarks,String time,String type){
+        Object[] params = {openId,nickName,tid,amount,label,remarks,type,time};
         TeamDao dao = new TeamDao();
         String bid = null;
         if((bid = dao.addTeamBill(params)) != null)
@@ -145,5 +146,13 @@ public class TeamService {
         Object[] params = new Object[]{tid,(Integer.valueOf(page)-1)*10};
         TeamDao dao = new TeamDao();
         return dao.getInfo(params);
+    }
+
+    /*
+    解散团队
+    */
+    public Boolean dismissTeam(String tid){
+        TeamDao dao = new TeamDao();
+       return dao.dismissTeam(tid);
     }
 }

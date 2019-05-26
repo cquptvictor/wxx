@@ -238,6 +238,14 @@
         <servlet-name>setTeam</servlet-name>
         <url-pattern>/setTeam</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>dimissTeam</servlet-name>
+        <servlet-class>wx.controller.team.dismissTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dimissTeam</servlet-name>
+        <url-pattern>/dismissTeam</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

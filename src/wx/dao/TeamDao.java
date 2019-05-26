@@ -143,9 +143,10 @@ public class TeamDao {
 
     public Boolean findMember(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select count openId from team_member where tid = ? and openId = ?";
+        String sql = "select id  from team_member where tid = ? and openId = ?";
         try {
-            if(queryRunner.query(sql,new ArrayHandler(),params) != null);
+            //?????
+            if(queryRunner.query(sql,new ArrayHandler(),params) != null)
                 return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -156,7 +157,7 @@ public class TeamDao {
     public Boolean leaveTeam(Object[] params)
     {
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete * from team_member where tid = ? and openId = ?";
+        String sql = "delete  from team_member where tid = ? and openId = ?";
         try {
             queryRunner.update(sql,params);
             return true;
@@ -200,5 +201,17 @@ public class TeamDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Boolean dismissTeam(String tid){
+        QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        String sql = "delete team,team_member,team_bill from team,team_member,team_bill where team.tid = ? and team.tid = team_member.tid and team.tid = team_bill.tid";
+        try {
+            if((queryRunner.update(sql,tid)) != 0)
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -5,14 +5,14 @@ public class BillMessage {
     private String event;//发生的事件
     private String amount;//原来多少钱
     private String label;
-    private String operationTime;//执行这个操作的时间
+    private String time;//执行这个操作的时间
 
-    public BillMessage(String name, String event, String amount, String label, String operationTime) {
+    public BillMessage(String name, String event, String amount, String label, String time) {
         this.name = name;
         this.event = event;
         this.amount = amount;
         this.label = label;
-        this.operationTime = operationTime;
+        this.time = time;
     }
 
     public String getLabel() {
@@ -49,12 +49,11 @@ public class BillMessage {
         this.amount = amount;
     }
 
-    public String getOperationTime() {
-        return operationTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setOperationTime(String operationTime) {
-        this.operationTime = operationTime;
+    public void setTime(String time) {
+        this.time = time;
     }
-
 }
