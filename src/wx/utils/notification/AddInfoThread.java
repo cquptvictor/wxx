@@ -10,18 +10,17 @@ import java.sql.SQLException;
 帮助记录消息到数据库中，采用多线程可以异步，并且复用，应该加上日志，记录报错的消息
 */
 public class AddInfoThread extends Thread{
-    private String tid;
-    private String message;
+    private Object[] params;
     public AddInfoThread(String tid, String message){
-        this.tid = tid;
-        this.message = message;
+            params = new Object[]{tid,message};
+
     }
     @Override
     public void run() {
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
         String sql = "insert into team_logs(tid,information)values(?,?)";
         try {
-            queryRunner.update(sql,new Object[]{tid,message});
+            queryRunner.update(sql,params);
         } catch (SQLException e) {
             e.printStackTrace();
         }

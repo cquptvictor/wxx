@@ -26,7 +26,7 @@ public class TeamService {
     }
     public List getTeam(String openId,String page){
         TeamDao dao = new TeamDao();
-        Object[] params = new Object[]{openId,(Integer.valueOf(page)-1)*10};
+        Object[] params = new Object[]{openId,openId,(Integer.valueOf(page)-1)*10};
         return dao.getTeam(params);
     }
     /*
@@ -82,7 +82,7 @@ public class TeamService {
     public Boolean addNewMember(String openId,String tid,String name,String tname){
         String uid = UUID.randomUUID().toString();//生成团队内的唯一标识符
         TeamDao teamDao = new TeamDao();
-        Object[] params1 = new Object[]{tid,openId};
+        Object[] params1 = new Object[]{openId,tid};
         if(!teamDao.findMember(params1)){
             Object[] params = new Object[]{openId,tid,uid,name,tname};
             Object[] params2 = new Object[]{openId,tid};

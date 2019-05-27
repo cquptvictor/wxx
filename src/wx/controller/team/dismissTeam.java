@@ -31,6 +31,5 @@ public class dismissTeam extends HttpServlet {
                 printWriter.write("{'static':0}");
         }else
             printWriter.write("{'static':0}");
-
     }
 }

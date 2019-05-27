@@ -44,8 +44,7 @@ public class TeamDao {
 
     public List<Team> getTeam(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        //String sql = "select tid,teamName as name,isAdministrator from team_member where openId = ?  limit ?,10";
-        String sql = "select count(team_logs.tid) as num,team_logs.tid, team.tname,team_member.isAdministrator from team_logs LEFT JOIN last_read_record on team_logs.tid = last_read_record.tid JOIN team on team.tid = team_logs.tid JOIN team_member where last_read_record.openId = ? and last_read_record.lastReadTime < team_logs.time group by team_logs.tid limit ?,10";
+        String sql = "select team.tid,team.tname as name,isAdministrator,v.unread from team left join team_member on team.tid = team_member.tid LEFT JOIN (select team_logs.tid as tid,count(team_logs.tid) as unread from last_read_record,team_logs where  last_read_record.tid = team_logs.tid and team_logs.time > lastReadTime and last_read_record.openId = ? group by team_logs.tid) as v on v.tid = team.tid where team_member.openId = ?  limit ?,10";
         try {
              return queryRunner.query(sql,new BeanListHandler<>(Team.class),params);
         } catch (SQLException e) {
@@ -59,7 +58,7 @@ public class TeamDao {
         //多个sql应该加事务
         try(Connection connection = JdbcUtils.getConnection()){
             //获取账单数据
-            String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks,openId = ? as isSelf,type,time from team_bill where tid = ? limit ?,10";
+            String sql = "select id as bid,openId as uid,name as nickName, amount, label, remarks,openId = ? as isSelf,type,time from team_bill where tid = ? order by time desc limit ?,10";
             //更新最近访问时间
             String sql2 = "update last_read_record set lastReadTime = now() where openId = ? and tid = ?";
             connection.setAutoCommit(false);
@@ -148,12 +147,12 @@ public class TeamDao {
 
     public Boolean findMember(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select team_member.id, team.tid from team_member,team  where team.tid = ? and team_member.openId = ?";
+        String sql = "select team.tid, team_member.id from team left outer join team_member on team.tid = team_member.tid  and team_member.openId = ? where team.tid = ?";
         try {
             //保证团队存在且用户不在这个团队中
             Object[] value = queryRunner.query(sql,new ArrayHandler(),params);
            //第一个是为了避免空指针错误
-            if((value != null && value[0] == null && value[1] != null))
+            if((value != null && value[0] != null && value[1] == null))
                 return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -164,7 +163,7 @@ public class TeamDao {
     public Boolean leaveTeam(Object[] params)
     {
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete  from team_member where tid = ? and openId = ?";
+        String sql = "delete team_member,last_read_record from team_member left join last_read_record on team_member.openId = last_read_record.openId  where team_member.tid = ? and team_member.openId = ?";
         try {
             queryRunner.update(sql,params);
             return true;
