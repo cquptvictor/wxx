@@ -4,6 +4,15 @@ public class Team {
     private String tid;
     private String name;
     private String isAdministrator;
+    private String unread;
+
+    public String getUnread() {
+        return unread;
+    }
+
+    public void setUnread(String unread) {
+        this.unread = unread;
+    }
 
     public String getName() {
         return name;

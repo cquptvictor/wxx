@@ -44,7 +44,8 @@ public class TeamDao {
 
     public List<Team> getTeam(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select tid,teamName as name,isAdministrator from team_member where openId = ?  limit ?,10";
+        //String sql = "select tid,teamName as name,isAdministrator from team_member where openId = ?  limit ?,10";
+        String sql = "select count(team_logs.tid) as num,team_logs.tid, team.tname,team_member.isAdministrator from team_logs LEFT JOIN last_read_record on team_logs.tid = last_read_record.tid JOIN team on team.tid = team_logs.tid JOIN team_member where last_read_record.openId = ? and last_read_record.lastReadTime < team_logs.time group by team_logs.tid limit ?,10";
         try {
              return queryRunner.query(sql,new BeanListHandler<>(Team.class),params);
         } catch (SQLException e) {
