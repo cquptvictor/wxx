@@ -22,13 +22,14 @@ public class joinTeam extends HttpServlet {
         String tid = request.getParameter("tid");
         String name = request.getParameter("name");
         String tname = request.getParameter("tname");
+        PrintWriter printWriter = response.getWriter();
         if(isJoin.equals("1")) {
-            PrintWriter printWriter = response.getWriter();
             TeamService teamService = new TeamService();
             if(teamService.addNewMember(openId,tid,name,tname)) {
                 printWriter.write("{'static':1}");
             }else
                 printWriter.write("{'static':0}");
-        }
+        }else
+            printWriter.write("{'static':0}");
     }
 }

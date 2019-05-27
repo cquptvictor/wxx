@@ -24,7 +24,7 @@ public class TeamDao {
             //插入到团队成员表，创建者默认为管理员
             String sql2 = "insert into team_member(tid,openId,tMemberName,teamName,uid,isAdministrator)values(?,?,?,?,?,1)";
             //插入到最后访问时间表
-            String sql3 = "insert into last_read_record(openId,tid)values(?,?)";
+            String sql3 = "insert into last_read_record(tid,openId)values(?,?)";
             try{
                 query.update(connection,sql,params);
                 query.update(connection,sql2,params2);
@@ -64,8 +64,12 @@ public class TeamDao {
             connection.setAutoCommit(false);
             try {
                 list = queryRunner.query(connection,sql,new BeanListHandler<>(TeamBill.class),params);
-                queryRunner.update(connection,sql2,params2);//更新对这个团队账单的最后一次访问时间
-                connection.commit();
+                if(queryRunner.update(connection,sql2,params2) == 0)//更新对这个团队账单的最后一次访问时间
+                {
+                    String sql3 = "insert into last_read_record(openId,tid)values(?,?)";
+                    queryRunner.update(connection,sql3,params2);
+                }
+                    connection.commit();
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -143,15 +147,17 @@ public class TeamDao {
 
     public Boolean findMember(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select id  from team_member where tid = ? and openId = ?";
+        String sql = "select team_member.id, team.tid from team_member,team  where team.tid = ? and team_member.openId = ?";
         try {
-            //?????
-            if(queryRunner.query(sql,new ArrayHandler(),params) != null)
-                return true;
+            //保证团队存在且用户不在这个团队中
+            Object[] value = queryRunner.query(sql,new ArrayHandler(),params);
+           //第一个是为了避免空指针错误
+            if((value != null && value[0] == null && value[1] != null))
+                return false;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     public Boolean leaveTeam(Object[] params)
