@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80015
 File Encoding         : 65001
 
-Date: 2019-05-26 19:22:24
+Date: 2019-05-27 09:46:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `achievements` (
   `achievement` char(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `type` char(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of achievements
@@ -38,6 +38,8 @@ INSERT INTO `achievements` VALUES ('5', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'bg1', '
 INSERT INTO `achievements` VALUES ('6', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'bg49', 'bill');
 INSERT INTO `achievements` VALUES ('7', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'bg49', 'bill');
 INSERT INTO `achievements` VALUES ('8', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'dg30', 'day');
+INSERT INTO `achievements` VALUES ('9', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'bg1', 'bill');
+INSERT INTO `achievements` VALUES ('10', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'dg1', 'day');
 
 -- ----------------------------
 -- Table structure for `bill`
@@ -52,7 +54,7 @@ CREATE TABLE `bill` (
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` char(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37784763 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37784771 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bill
@@ -194,6 +196,14 @@ INSERT INTO `bill` VALUES ('37784759', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '399', 'l
 INSERT INTO `bill` VALUES ('37784760', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '885', 'funny-0', '', '2019-05-26 17:18:09', '0');
 INSERT INTO `bill` VALUES ('37784761', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '202', 'funny-0', '', '2019-05-26 17:19:35', '0');
 INSERT INTO `bill` VALUES ('37784762', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '38', 'funny-0', '', '2019-05-26 17:31:06', '0');
+INSERT INTO `bill` VALUES ('37784763', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '2', 'income-1', '', '2019-05-26 20:43:25', '1');
+INSERT INTO `bill` VALUES ('37784764', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '5', 'funny-0', '', '2019-05-26 20:54:25', '0');
+INSERT INTO `bill` VALUES ('37784765', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '5', 'funny-0', '', '2019-05-26 20:55:11', '0');
+INSERT INTO `bill` VALUES ('37784766', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '5', 'funny-0', '', '2019-05-26 20:55:53', '0');
+INSERT INTO `bill` VALUES ('37784767', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '5', 'funny-0', '', '2019-05-26 20:56:47', '0');
+INSERT INTO `bill` VALUES ('37784768', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '5', 'funny-0', '', '2019-05-26 20:57:16', '0');
+INSERT INTO `bill` VALUES ('37784769', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '5', 'funny-0', '', '2019-05-26 20:57:43', '0');
+INSERT INTO `bill` VALUES ('37784770', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '28', 'funny-0', 'vvvvvvv不不不宝贝宝贝拜拜不不不帮', '2019-05-27 09:44:51', '0');
 
 -- ----------------------------
 -- Table structure for `label`
@@ -229,7 +239,7 @@ CREATE TABLE `last_read_record` (
   `openId` varchar(64) NOT NULL,
   `lastReadTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of last_read_record
@@ -239,10 +249,23 @@ INSERT INTO `last_read_record` VALUES ('2', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'ca7
 INSERT INTO `last_read_record` VALUES ('3', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'edb39dcb-9804-446c-b719-433a556c5b84', '2019-05-26 16:28:36');
 INSERT INTO `last_read_record` VALUES ('4', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '2019-05-26 16:28:36');
 INSERT INTO `last_read_record` VALUES ('5', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '2019-05-26 16:28:36');
-INSERT INTO `last_read_record` VALUES ('6', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '2019-05-26 16:28:36');
-INSERT INTO `last_read_record` VALUES ('7', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-26 17:34:13');
+INSERT INTO `last_read_record` VALUES ('6', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '2019-05-26 21:41:30');
+INSERT INTO `last_read_record` VALUES ('7', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-27 09:43:34');
 INSERT INTO `last_read_record` VALUES ('8', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '2019-05-26 18:13:40');
-INSERT INTO `last_read_record` VALUES ('9', '404b7289-3b73-43b5-9e8d-72612cc17d8d', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-26 19:21:37');
+INSERT INTO `last_read_record` VALUES ('9', '404b7289-3b73-43b5-9e8d-72612cc17d8d', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-26 21:03:33');
+INSERT INTO `last_read_record` VALUES ('10', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', 'bbee0467-ac17-40b9-a1b2-69f44fba0faa', '2019-05-26 21:05:24');
+INSERT INTO `last_read_record` VALUES ('11', 'bbee0467-ac17-40b9-a1b2-69f44fba0faa', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-26 22:27:09');
+INSERT INTO `last_read_record` VALUES ('12', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', 'e7ce84bb-4172-4f68-bec3-ce7fbb874a70', '2019-05-26 21:10:34');
+INSERT INTO `last_read_record` VALUES ('13', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '2019-05-26 21:15:57');
+INSERT INTO `last_read_record` VALUES ('14', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '2019-05-26 21:33:28');
+INSERT INTO `last_read_record` VALUES ('15', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-27 09:43:34');
+INSERT INTO `last_read_record` VALUES ('16', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', 'cf49e43b-fb27-4fab-9c28-eddcadaf557a', '2019-05-26 22:28:24');
+INSERT INTO `last_read_record` VALUES ('17', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-27 09:43:34');
+INSERT INTO `last_read_record` VALUES ('18', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', 'a018ae1f-6107-4445-af07-31aec7e2718d', '2019-05-27 09:39:26');
+INSERT INTO `last_read_record` VALUES ('19', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', 'abf6d1c0-a0ca-45e4-9ef9-1d1d2eb63bf5', '2019-05-27 09:39:26');
+INSERT INTO `last_read_record` VALUES ('20', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', 'ebde4881-50c4-454c-8512-8fc5fc13b6e7', '2019-05-27 09:40:27');
+INSERT INTO `last_read_record` VALUES ('21', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '5a5b09af-f3e2-4973-adba-54813a559a83', '2019-05-27 09:40:52');
+INSERT INTO `last_read_record` VALUES ('22', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '2019-05-27 09:43:34');
 
 -- ----------------------------
 -- Table structure for `team`
@@ -254,17 +277,17 @@ CREATE TABLE `team` (
   `openId` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'user''s id',
   `tname` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of team
 -- ----------------------------
-INSERT INTO `team` VALUES ('26', '274b660b-06c2-4ce2-93a0-b4184c5a7e5f', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'aa');
 INSERT INTO `team` VALUES ('27', 'ca720773-d10d-47b0-9f9e-c173fced4bc2', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'aa');
 INSERT INTO `team` VALUES ('28', 'edb39dcb-9804-446c-b719-433a556c5b84', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'hhh');
 INSERT INTO `team` VALUES ('29', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'aaa');
 INSERT INTO `team` VALUES ('30', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '测试');
 INSERT INTO `team` VALUES ('31', '404b7289-3b73-43b5-9e8d-72612cc17d8d', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '我的团队');
+INSERT INTO `team` VALUES ('32', 'bbee0467-ac17-40b9-a1b2-69f44fba0faa', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '滚滚滚');
 
 -- ----------------------------
 -- Table structure for `team_bill`
@@ -281,14 +304,14 @@ CREATE TABLE `team_bill` (
   `type` char(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'income1,outcome0',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of team_bill
 -- ----------------------------
 INSERT INTO `team_bill` VALUES ('1', '1', '1', '1', '1.00', '1', '1', '1', '2019-05-25 16:10:42');
 INSERT INTO `team_bill` VALUES ('9', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'Kano', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '5.00', 'medical-0', '', '0', '2019-05-26 14:48:39');
-INSERT INTO `team_bill` VALUES ('21', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'Kano', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '5.00', 'income-3', '', '1', '2019-05-26 15:07:36');
+INSERT INTO `team_bill` VALUES ('21', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'Kano', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '5.00', 'income-2', '', '1', '2019-05-26 20:33:32');
 INSERT INTO `team_bill` VALUES ('23', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '6.00', 'funny-0', '', '0', '2019-05-26 16:07:54');
 INSERT INTO `team_bill` VALUES ('26', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '28.00', 'medical-0', '', '0', '2019-05-26 16:40:40');
 INSERT INTO `team_bill` VALUES ('28', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '20.00', 'medical-0', '', '0', '2019-05-26 16:40:53');
@@ -297,7 +320,14 @@ INSERT INTO `team_bill` VALUES ('30', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', 
 INSERT INTO `team_bill` VALUES ('31', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '20.00', 'diet-0', '', '0', '2019-05-26 17:20:09');
 INSERT INTO `team_bill` VALUES ('32', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '20.00', 'diet-0', '', '0', '2019-05-26 17:20:15');
 INSERT INTO `team_bill` VALUES ('33', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '20.00', 'diet-0', '', '0', '2019-05-26 17:20:12');
-INSERT INTO `team_bill` VALUES ('35', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '50.00', 'medical-0', 'bz方法', '0', '2019-05-26 17:28:24');
+INSERT INTO `team_bill` VALUES ('41', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'Kano', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '3.00', 'income-1', '', '1', '2019-05-26 20:41:25');
+INSERT INTO `team_bill` VALUES ('43', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '50.00', 'funny-0', '', '0', '2019-05-26 20:59:17');
+INSERT INTO `team_bill` VALUES ('46', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'Kano', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '6.00', 'funny-0', '', '0', '2019-05-26 21:07:17');
+INSERT INTO `team_bill` VALUES ('54', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '50.00', 'diet-0', '', '0', '2019-05-26 22:19:32');
+INSERT INTO `team_bill` VALUES ('55', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '580.00', 'medical-0', '', '0', '2019-05-26 22:19:44');
+INSERT INTO `team_bill` VALUES ('56', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '500.00', 'funny-0', '', '0', '2019-05-26 22:25:48');
+INSERT INTO `team_bill` VALUES ('57', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '50.00', 'medical-0', '', '0', '2019-05-26 22:26:07');
+INSERT INTO `team_bill` VALUES ('59', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '电光', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '280.00', 'diet-0', '', '0', '2019-05-27 09:43:00');
 
 -- ----------------------------
 -- Table structure for `team_logs`
@@ -309,7 +339,7 @@ CREATE TABLE `team_logs` (
   `information` json NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of team_logs
@@ -410,6 +440,50 @@ INSERT INTO `team_logs` VALUES ('93', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '{
 INSERT INTO `team_logs` VALUES ('94', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '{\"name\": \"电光\", \"event\": \"5\", \"label\": \"funny-0\", \"amount\": \"28.00\", \"operationTime\": \"2019-05-26\"}');
 INSERT INTO `team_logs` VALUES ('95', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '{\"name\": \"电光\", \"event\": \"5\", \"label\": \"medical-0\", \"amount\": \"201.00\", \"operationTime\": \"2019-05-26\"}');
 INSERT INTO `team_logs` VALUES ('96', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '{\"name\": \"电光\", \"event\": \"5\", \"label\": \"funny-0\", \"amount\": \"82.00\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('97', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '{\"name\": \"Kano\", \"event\": \"4\", \"label\": \"income-0\", \"amount\": \"3\", \"operationTime\": \"1\"}');
+INSERT INTO `team_logs` VALUES ('98', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '{\"name\": \"Kano\", \"event\": \"4\", \"label\": \"income-0\", \"amount\": \"55\", \"operationTime\": \"1\"}');
+INSERT INTO `team_logs` VALUES ('99', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '{\"name\": \"Kano\", \"event\": \"5\", \"label\": \"income-0\", \"amount\": \"55.00\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('100', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"3\", \"label\": \"income-2\", \"amount\": \"5\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('101', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"3\", \"label\": \"life-0\", \"amount\": \"50\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('102', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '{\"name\": \"Kano\", \"event\": \"3\", \"label\": \"income-1\", \"amount\": \"3\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('103', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '{\"name\": \"电光\", \"event\": \"4\", \"label\": \"funny-0\", \"amount\": \"50\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('104', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"4\", \"label\": \"funny-0\", \"amount\": \"5\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('105', '404b7289-3b73-43b5-9e8d-72612cc17d8d', '{\"name\": \"undefined\", \"time\": \"2019-05-26\", \"event\": \"2\", \"operator\": \"电光\"}');
+INSERT INTO `team_logs` VALUES ('106', 'bbee0467-ac17-40b9-a1b2-69f44fba0faa', '{\"name\": \"电光\", \"event\": \"4\", \"label\": \"funny-0\", \"amount\": \"50\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('107', 'bbee0467-ac17-40b9-a1b2-69f44fba0faa', '{\"name\": \"电光\", \"event\": \"5\", \"label\": \"funny-0\", \"amount\": \"50.00\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('108', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"4\", \"label\": \"funny-0\", \"amount\": \"6\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('109', 'bbee0467-ac17-40b9-a1b2-69f44fba0faa', '{\"name\": \"电光\", \"time\": \"2019-05-26\", \"event\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('110', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"4\", \"label\": \"medical-0\", \"amount\": \"5\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('111', '274b660b-06c2-4ce2-93a0-b4184c5a7e5f', '{\"name\": \"Kano\", \"event\": \"4\", \"label\": \"funny-0\", \"amount\": \"5\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('112', '274b660b-06c2-4ce2-93a0-b4184c5a7e5f', '{\"name\": \"Kano\", \"event\": \"4\", \"label\": \"medical-0\", \"amount\": \"6\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('113', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"电光\", \"event\": \"4\", \"label\": \"medical-0\", \"amount\": \"280\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('114', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"电光\", \"event\": \"4\", \"label\": \"diet-0\", \"amount\": \"2806\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('115', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"电光\", \"event\": \"4\", \"label\": \"medical-0\", \"amount\": \"380\", \"operationTime\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('116', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"5\", \"label\": \"medical-0\", \"amount\": \"5.00\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('117', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"5\", \"label\": \"funny-0\", \"amount\": \"5.00\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('118', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"Kano\", \"event\": \"5\", \"label\": \"life-0\", \"amount\": \"50.00\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('119', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"Kano\", \"time\": \"2019-05-26\", \"event\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('120', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', '{\"name\": \"Kano\", \"time\": \"2019-05-26\", \"event\": \"1\"}');
+INSERT INTO `team_logs` VALUES ('121', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"电光\", \"event\": \"3\", \"label\": \"medical-0\", \"amount\": \"380.02\", \"operationTime\": \"2019-05-26\"}');
+INSERT INTO `team_logs` VALUES ('122', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"电光\", \"time\": \"0\", \"event\": \"4\", \"label\": \"funny-0\", \"amount\": \"20\"}');
+INSERT INTO `team_logs` VALUES ('123', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"undefined\", \"time\": \"2019-05-26\", \"event\": \"2\", \"operator\": \"电光\"}');
+INSERT INTO `team_logs` VALUES ('124', '2ac92a0e-97a1-46c7-b5f0-e147073901e0', '{\"name\": \"undefined\", \"time\": \"2019-05-26\", \"event\": \"2\", \"operator\": \"电光\"}');
+INSERT INTO `team_logs` VALUES ('125', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-26\", \"event\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('126', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"0\", \"event\": \"4\", \"label\": \"diet-0\", \"amount\": \"50\"}');
+INSERT INTO `team_logs` VALUES ('127', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"0\", \"event\": \"4\", \"label\": \"medical-0\", \"amount\": \"580\"}');
+INSERT INTO `team_logs` VALUES ('128', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"undefined\", \"time\": \"2019-05-26\", \"event\": \"2\", \"operator\": \"Kano\"}');
+INSERT INTO `team_logs` VALUES ('129', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"undefined\", \"time\": \"2019-05-26\", \"event\": \"2\", \"operator\": \"Kano\"}');
+INSERT INTO `team_logs` VALUES ('130', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-26 22:25:48\", \"event\": \"4\", \"label\": \"funny-0\", \"amount\": \"500\"}');
+INSERT INTO `team_logs` VALUES ('131', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-26 22:26:07\", \"event\": \"4\", \"label\": \"medical-0\", \"amount\": \"50\"}');
+INSERT INTO `team_logs` VALUES ('132', 'bbee0467-ac17-40b9-a1b2-69f44fba0faa', '{\"name\": \"电光\", \"time\": \"2019-05-26\", \"event\": \"1\"}');
+INSERT INTO `team_logs` VALUES ('133', 'cf49e43b-fb27-4fab-9c28-eddcadaf557a', '{\"name\": \"电光\", \"time\": \"2019-05-26 22:28:56\", \"event\": \"4\", \"label\": \"medical-0\", \"amount\": \"455\"}');
+INSERT INTO `team_logs` VALUES ('134', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-26\", \"event\": \"1\"}');
+INSERT INTO `team_logs` VALUES ('135', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-26\", \"event\": \"0\"}');
+INSERT INTO `team_logs` VALUES ('136', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"undefined\", \"time\": \"2019-05-26\", \"event\": \"2\", \"operator\": \"Kano\"}');
+INSERT INTO `team_logs` VALUES ('137', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"undefined\", \"time\": \"2019-05-26\", \"event\": \"2\", \"operator\": \"Kano\"}');
+INSERT INTO `team_logs` VALUES ('138', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-27 09:43:00\", \"event\": \"4\", \"label\": \"diet-0\", \"amount\": \"280\"}');
+INSERT INTO `team_logs` VALUES ('139', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-27\", \"event\": \"1\"}');
+INSERT INTO `team_logs` VALUES ('140', '1e54034f-cbf4-4040-aef0-2537eb89d62c', '{\"name\": \"电光\", \"time\": \"2019-05-27\", \"event\": \"0\"}');
 
 -- ----------------------------
 -- Table structure for `team_member`
@@ -424,17 +498,15 @@ CREATE TABLE `team_member` (
   `teamName` varchar(48) NOT NULL,
   `isAdministrator` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '0False,1True',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of team_member
 -- ----------------------------
 INSERT INTO `team_member` VALUES ('1', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '15cfa463-7221-4a29-9157-c6a2596eed3b', 'Kano', 'aaa', '1');
-INSERT INTO `team_member` VALUES ('2', '274b660b-06c2-4ce2-93a0-b4184c5a7e5f', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'e95633ea-351b-4281-bdfa-e18ab9cae589', 'Kano', 'aa', '1');
 INSERT INTO `team_member` VALUES ('4', 'ca720773-d10d-47b0-9f9e-c173fced4bc2', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '335dfc85-22cf-4957-93e2-fa5b99d2951f', 'Kano', 'aa', '1');
 INSERT INTO `team_member` VALUES ('5', 'edb39dcb-9804-446c-b719-433a556c5b84', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', 'ef5c8586-e18a-45ae-92fd-1efa018ba348', 'Kano', 'hhh', '1');
-INSERT INTO `team_member` VALUES ('8', '6f8fd30a-4323-4098-9f9a-b1fb3e76bd0d', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '670ed4c7-ba5d-42fa-9f75-ac6bcd055300', 'Kano', '测试', '0');
-INSERT INTO `team_member` VALUES ('10', '404b7289-3b73-43b5-9e8d-72612cc17d8d', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '4d75911c-b4a3-497a-9206-7e84c51dc966', '电光', '我的团队', '1');
+INSERT INTO `team_member` VALUES ('24', '1e54034f-cbf4-4040-aef0-2537eb89d62c', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '17abad9b-cba7-4f2e-bd5a-cd08076a7067', '电光', 'aaa', '0');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -452,7 +524,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('15f2a22c-4b3b-40dd-9622-084f0e8253b2', 'oLvqJ5WWYEXfQfmm-25v6q6Xn0Cg', '1', 'true');
-INSERT INTO `user` VALUES ('2b4d74d2-a081-4914-a907-bcdb49194cbc', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '0', 'false');
+INSERT INTO `user` VALUES ('2b4d74d2-a081-4914-a907-bcdb49194cbc', 'oLvqJ5cL_E9swQ-y2fBwMzCbuOrQ', '1', 'true');
 
 -- ----------------------------
 -- View structure for `balance`
