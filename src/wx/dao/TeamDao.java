@@ -203,11 +203,12 @@ public class TeamDao {
         return null;
     }
 
-    public Boolean dismissTeam(String tid){
+    public Boolean dismissTeam(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete team,team_member,team_bill from team,team_member,team_bill where team.tid = ? and team.tid = team_member.tid and team.tid = team_bill.tid";
+        //只有left join才能实现在三个表不同时有数据时才能删除
+        String sql = "delete team,team_member,team_bill from team LEFT JOIN team_member on team.tid = team_member.tid LEFT JOIN team_bill on team_member.tid = team_bill.tid  where team.tid = ? ";
         try {
-            if((queryRunner.update(sql,tid)) != 0)
+            if((queryRunner.update(sql,params)) != 0)
                 return true;
         } catch (SQLException e) {
             e.printStackTrace();

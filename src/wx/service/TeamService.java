@@ -118,7 +118,7 @@ public class TeamService {
         Object[] params = new Object[]{tid,openId,uid};
         TeamDao teamDao = new TeamDao();
         if(teamDao.kickOut(params))
-        {
+        {  //添加到日志
             addInfo add = new addInfo();
             add.MemberInfo(tid,operator,name,EventMessage.KickOutOfTeam,TimeUtils.getNow());
             return true;
@@ -153,6 +153,7 @@ public class TeamService {
     */
     public Boolean dismissTeam(String tid){
         TeamDao dao = new TeamDao();
-       return dao.dismissTeam(tid);
+        Object[] params = new Object[]{tid};
+        return dao.dismissTeam(params);
     }
 }
