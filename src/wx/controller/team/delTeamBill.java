@@ -26,7 +26,7 @@ public class delTeamBill extends HttpServlet {
         String label = request.getParameter("label");
         PrintWriter printWriter = response.getWriter();
         TeamService teamService = new TeamService();
-        if(isAdministrator.auth(openId,tid) && teamService.delTeamBill(tid,bid,name,amount,label)){
+        if(isAdministrator.auth(openId,tid) && teamService.delTeamBill(tid,bid,name,amount,label,openId)){
             printWriter.write("{'static':1}");
         }else
             printWriter.write("{'static':0}");

@@ -44,7 +44,9 @@ public class TeamDao {
 
     public List<Team> getTeam(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "select team.tid,team.tname as name,isAdministrator,v.unread from team left join team_member on team.tid = team_member.tid LEFT JOIN (select team_logs.tid as tid,count(team_logs.tid) as unread from last_read_record,team_logs where  last_read_record.tid = team_logs.tid and team_logs.time > lastReadTime and last_read_record.openId = ? group by team_logs.tid) as v on v.tid = team.tid where team_member.openId = ?  limit ?,10";
+        String sql = "select team.tid,team.tname as name,isAdministrator,v.unread from team left join team_member on team.tid = team_member.tid LEFT JOIN (select team_logs.tid as tid,count(team_logs.tid) as unread from last_read_record,team_logs where  last_read_record.tid = team_logs.tid and team_logs.time > lastReadTime and last_read_record.openId = ? and last_read_record.openId != team_logs.openId group by team_logs.tid) as v on v.tid = team.tid where team_member.openId = ?  limit ?,10";
+        //一个很复杂的sql语句
+     //   String sql = "select team.tid,team.tname as name,team_member.isAdministrator, count(team_logs.tid) as unread from team LEFT JOIN team_member on team_member.tid =team.tid and team_member.openId = ? LEFT JOIN team_logs on team_logs.tid = team.tid left join last_read_record on team_logs.tid = last_read_record.tid  and lastReadTime < team_logs.time group by team_logs.tid where team_member.openId = ? limit ?,10";
         try {
              return queryRunner.query(sql,new BeanListHandler<>(Team.class),params);
         } catch (SQLException e) {
@@ -126,7 +128,7 @@ public class TeamDao {
         //数据库中添加相应新成员
         String sql = "insert into team_member(openId,tid,uid,tMemberName,teamName)values(?,?,?,?,?)";
         //插入一条新消息到最后访问时间表中
-        String sql2 = "insert into last_read_record(openId,tid)values(?,?)";
+        String sql2 = "insert into last_read_record(openId,tid,lastReadTime)values(?,?,?)";
         try(Connection connection = JdbcUtils.getConnection()) {
             try {
                 connection.setAutoCommit(false);
@@ -175,7 +177,7 @@ public class TeamDao {
 
     public Boolean kickOut(Object[] params){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "delete team_member from team_member where tid = ? and openId = ? and uid = ?";
+        String sql = "delete team_member from team_member where tid = ?  and uid = ?";
         try {
             queryRunner.update(sql,params);
             return true;

@@ -29,7 +29,7 @@ public class editTeamBill extends HttpServlet {
                 String  amount = request.getParameter("amount");
                 String label = request.getParameter("label");
                 TeamService teamService = new TeamService();
-                if(teamService.editTeamBill(tid,bid,nickName,amount,label,remarks))
+                if(teamService.editTeamBill(tid,bid,nickName,amount,label,remarks,openId))
                     printWriter.write("{'static':1}");
                 else
                     printWriter.write("{'static':0}");

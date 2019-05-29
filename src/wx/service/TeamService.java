@@ -49,13 +49,13 @@ public class TeamService {
     /*
        删除账单
      */
-    public Boolean delTeamBill(String tid,String bid,String name,String amount,String label) {
+    public Boolean delTeamBill(String tid,String bid,String name,String amount,String label,String openId) {
         Object[] params = new Object[]{tid, bid};
         TeamDao dao = new TeamDao();
         if(dao.delTeamBill(params))
         {
             addInfo add = new addInfo();
-            add.BillInfo(tid,name,EventMessage.DelBil,amount,label,TimeUtils.getNow());
+            add.BillInfo(tid,name,EventMessage.DelBil,amount,label,TimeUtils.getNow(),openId);
             return true;
         }else
             return false;
@@ -71,7 +71,7 @@ public class TeamService {
         if((bid = dao.addTeamBill(params)) != null)
         {   //添加通知
             addInfo add = new addInfo();
-            add.BillInfo(tid,nickName,EventMessage.AddBill,amount,label,time);
+            add.BillInfo(tid,nickName,EventMessage.AddBill,amount,label,time,openId);
             return bid;
         }else
             return null;
@@ -85,10 +85,11 @@ public class TeamService {
         Object[] params1 = new Object[]{openId,tid};
         if(!teamDao.findMember(params1)){
             Object[] params = new Object[]{openId,tid,uid,name,tname};
-            Object[] params2 = new Object[]{openId,tid};
+            Object[] params2 = new Object[]{openId,tid,"2016-05-27"};
             if(teamDao.addNewMember(params,params2)){
                 addInfo add = new addInfo();//添加日志
-                add.MemberInfo(tid,null,name,EventMessage.NewMember, TimeUtils.getNow());
+                //新用户的最后访问时间应该在所有账单之前
+                add.MemberInfo(tid,null,name,EventMessage.NewMember, TimeUtils.getNow(),openId);
                 return true;
         }else
             return  false;
@@ -104,8 +105,8 @@ public class TeamService {
         if(dao.leaveTeam(params))
         {
             addInfo add = new addInfo();
-            //自己离开团队是没有operator的
-            add.MemberInfo(tid,null,name,EventMessage.ExitTeam,TimeUtils.getNow());
+            //自己离开团队是没有operator的,也不用记录openId
+            add.MemberInfo(tid,null,name,EventMessage.ExitTeam,TimeUtils.getNow(),null);
             return true;
         }else
             return false;
@@ -114,12 +115,12 @@ public class TeamService {
     团队管理员踢人
     */
     public Boolean kickOut(String tid,String openId,String uid,String name,String operator){
-        Object[] params = new Object[]{tid,openId,uid};
+        Object[] params = new Object[]{tid,uid};
         TeamDao teamDao = new TeamDao();
         if(teamDao.kickOut(params))
         {  //添加到日志
             addInfo add = new addInfo();
-            add.MemberInfo(tid,operator,name,EventMessage.KickOutOfTeam,TimeUtils.getNow());
+            add.MemberInfo(tid,operator,name,EventMessage.KickOutOfTeam,TimeUtils.getNow(),openId);
             return true;
         }else
             return false;
@@ -128,12 +129,12 @@ public class TeamService {
     /*
     编辑账单
     */
-    public Boolean editTeamBill(String tid, String bid, String nickName, String amount, String label, String remarks){
+    public Boolean editTeamBill(String tid, String bid, String nickName, String amount, String label, String remarks,String openId){
         Object[] params = new Object[]{nickName,amount,label,remarks,bid,tid};
         TeamDao dao = new TeamDao();
         if(dao.editTeamBill(params)){
             addInfo add = new addInfo();
-            add.BillInfo(tid,nickName,EventMessage.EditBill,amount,label,TimeUtils.getNow());
+            add.BillInfo(tid,nickName,EventMessage.EditBill,amount,label,TimeUtils.getNow(),openId);
             return true;
         }else
             return false;

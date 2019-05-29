@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/">
+<Context ><!--path为"/" 或 ""相当于指定为Root Context-->
     <Manager
             className="org.apache.catalina.session.PersistentManager"
              maxIdleSwap="5"
              >
         <Store className="org.apache.catalina.session.FileStore"
-               directory="C:\Users\victor\Desktop\session" />
+               directory="/root/session" />
     </Manager>
     <Resource
             name="jdbc/wx"

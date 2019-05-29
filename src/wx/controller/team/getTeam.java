@@ -30,6 +30,10 @@ public class getTeam extends HttpServlet {
         List<Team> list = teamService.getTeam(openId,page);
         Gson gson = JsonUtils.getGson();
         PrintWriter printWriter = response.getWriter();
-        printWriter.write(gson.toJson(list));
+        if(list != null)
+            printWriter.write(gson.toJson(list));
+        else
+            printWriter.write(gson.toJson("{'data':[]}"));
+
     }
 }

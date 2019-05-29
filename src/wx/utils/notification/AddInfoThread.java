@@ -1,9 +1,7 @@
 package wx.utils.notification;
 
-import com.google.gson.Gson;
 import org.apache.commons.dbutils.QueryRunner;
 import wx.utils.JdbcUtils;
-import wx.utils.JsonUtils;
 
 import java.sql.SQLException;
 /*
@@ -11,14 +9,13 @@ import java.sql.SQLException;
 */
 public class AddInfoThread extends Thread{
     private Object[] params;
-    public AddInfoThread(String tid, String message){
-            params = new Object[]{tid,message};
-
+    public AddInfoThread(String tid, String message,String openId){
+            params = new Object[]{tid,message,openId};
     }
     @Override
     public void run() {
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
-        String sql = "insert into team_logs(tid,information)values(?,?)";
+        String sql = "insert into team_logs(tid,information,openId)values(?,?,?)";
         try {
             queryRunner.update(sql,params);
         } catch (SQLException e) {

@@ -18,6 +18,7 @@ public class leaveTeam extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //踢人，openId是踢人者的id，离开，是离开者的id
         String openId =(String)request.getSession().getAttribute("token");
         String tid = request.getParameter("tid");
         //自己退出团队就没有uid和operator
