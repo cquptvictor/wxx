@@ -138,7 +138,7 @@ public class userDao {
                 sql1 = "select t3.amount,t1.time from\n" +
                         //创建时间的虚表t1
                         "(SELECT @cdate := date_add(@cdate,interval 1 MONTH) as time from \n" +
-                        "(SELECT @cdate := ? from bill limit ?) as t2)t1\n" +
+                        "(SELECT @cdate := ? from calander limit ?) as t2)t1\n" +
 
                         "LEFT JOIN\n" +
                         //创建数据表t3
@@ -149,7 +149,7 @@ public class userDao {
                 sql2 = "select t3.amount,t1.time from\n" +
                         //创建时间的虚表t1
                         "(SELECT @cdate := date_add(@cdate,interval 1 MONTH) as time from \n" +
-                        "(SELECT @cdate := ? from bill limit ?) as t2)t1\n" +
+                        "(SELECT @cdate := ? from calander limit ?) as t2)t1\n" +
 
                         "LEFT JOIN\n" +
                         //创建数据表t3
@@ -161,7 +161,7 @@ public class userDao {
                 sql1 = "select t1.t as time, IFNULL(amount,0) as amount from \n" +
                         //生成时间表
                         "(SELECT @cdate := date_add(@cdate,interval 1 DAY) as t from \n" +
-                        "(SELECT @cdate := ? from bill limit ?) as t2) as t1\n" +
+                        "(SELECT @cdate := ? from calander limit ?) as t2) as t1\n" +
 
                         " LEFT OUTER JOIN \n" +
                         //数据表
@@ -171,7 +171,7 @@ public class userDao {
                 sql2 = "select t1.t as time, IFNULL(amount,0) as amount from \n" +
                         //生成时间表
                         "(SELECT @cdate := date_add(@cdate,interval 1 DAY) as t from \n" +
-                        "(SELECT @cdate := ? from bill limit ?) as t2) as t1\n" +
+                        "(SELECT @cdate := ? from calander limit ?) as t2) as t1\n" +
 
                         " LEFT OUTER JOIN \n" +
                         //数据表
@@ -258,6 +258,7 @@ public class userDao {
         //徽章处理
     public Map getBadge(String openId){
         QueryRunner queryRunner = new QueryRunner(JdbcUtils.getDataSource());
+        //id逆序保证选出最大的
         String sql2 = "select achievement from achievements where openId = ? and type = ? ORDER BY id desc limit 1";
         Object[] bill = null;
         Object[] days = null;

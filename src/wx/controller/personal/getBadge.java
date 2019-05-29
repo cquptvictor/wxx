@@ -25,7 +25,6 @@ public class getBadge extends HttpServlet {
         PrintWriter printWriter = response.getWriter();
         Map map = service.getBadge(openId);
         Gson gson = JsonUtils.getGson();
-        gson.toJson(map);
         printWriter.write("{'data':" +gson.toJson(map)+"}");
 
      }
